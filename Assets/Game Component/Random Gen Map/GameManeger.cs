@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManeger : MonoBehaviour
 {
     // make game manager singleton
@@ -9,7 +9,7 @@ public class GameManeger : MonoBehaviour
     public BoardManeger boardScript;
     // Start is called before the first frame update
 
-    public int level = 3;
+    public int level = 1;
 
     void Awake()
     {
@@ -23,24 +23,28 @@ public class GameManeger : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        boardScript = GetComponent<BoardManeger>();
 
         initializeGame();
+
+        // use this to not destroy the game manager when new scene is created
+        DontDestroyOnLoad(gameObject);
+        boardScript = GetComponent<BoardManeger>();
+
+    }
+
+    void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene aScene, LoadSceneMode aMode)
+    {
+        initializeGame();
+
     }
 
     // this function will generate map when game start
-    void initializeGame()
+    public void initializeGame()
     {
         boardScript.mapGen(level);
-    }
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

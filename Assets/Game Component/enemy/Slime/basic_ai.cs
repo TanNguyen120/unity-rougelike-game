@@ -77,5 +77,6 @@ public class basic_ai : MonoBehaviour
         transform.position += new Vector3(-1f, 0f, 0f) * moveSpeed * Time.deltaTime;
         meter--;
     }
+
 }
 

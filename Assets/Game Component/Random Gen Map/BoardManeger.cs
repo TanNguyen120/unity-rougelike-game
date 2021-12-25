@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
+using UnityEngine.SceneManagement;
 public class BoardManeger : MonoBehaviour
 {
     // serializable make an object into a list or array so we can send it to another API
@@ -24,8 +24,8 @@ public class BoardManeger : MonoBehaviour
 
     // we will generate the map base on a grid system
     // so we will have row and column
-    public int row;
-    public int column;
+    public int row = 1;
+    public int column = 1;
 
     // the list of vector is sorted all cell of ours grid system
     private List<Vector3> cells = new List<Vector3>();
@@ -33,8 +33,7 @@ public class BoardManeger : MonoBehaviour
 
 
     //then in here we will define the random number of object we want to generate
-    public Count objectCount = new Count(3, 6);
-    public Count potionCount = new Count(2, 6);
+
 
     public GameObject exitDoor;
 
@@ -57,11 +56,7 @@ public class BoardManeger : MonoBehaviour
     public GameObject leftCorrner;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
     // Update is called once per frame
     void Update()
@@ -187,6 +182,12 @@ public class BoardManeger : MonoBehaviour
     // this function will setup the MAP
     public void mapGen(int level)
     {
+        column = level * 5;
+        row = level * 5;
+        Count objectCount = new Count(2 * level, 6 * level);
+        Count potionCount = new Count(1 * level, 2 * level);
+
+
         // call board setup
         BoardSetup();
 
@@ -201,7 +202,7 @@ public class BoardManeger : MonoBehaviour
 
 
         // calculate difficulty curve base on the log n where n = level
-        int enemysCount = (int)Mathf.Log(level, 2f);
+        int enemysCount = 2 * level;
 
         spawnObjectAtRandom(enemys, enemysCount, enemysCount);
 

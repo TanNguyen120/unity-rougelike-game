@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 8156150337670911231}
-  level: 3
+  level: 1
 --- !u!114 &8156150337670911231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,12 +60,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   row: 8
   column: 19
-  objectCount:
-    minimum: 1
-    maximum: 8
-  potionCount:
-    minimum: 1
-    maximum: 4
   exitDoor: {fileID: 8443536574063678970, guid: 0bc8443198b190642a5249fbe7f1909d, type: 3}
   floorTiles:
   - {fileID: 2582902752966015369, guid: d8f3015b0705baf44a64ac44677b564c, type: 3}

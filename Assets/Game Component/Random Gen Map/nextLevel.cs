@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class nextLevel : MonoBehaviour
+{
+    // Start is called before the first frame update
+    int currenLevel;
+    GameManeger gameManeger;
+
+    void Start()
+    {
+        gameManeger = GameManeger.instance;
+        currenLevel = gameManeger.level;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        int nextLevel = currenLevel + 1;
+        gameManeger.level = nextLevel;
+        Debug.Log("next level: " + nextLevel);
+        SceneManager.LoadScene("randomMap");
+    }
+}

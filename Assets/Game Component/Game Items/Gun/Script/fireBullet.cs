@@ -9,9 +9,14 @@ public class fireBullet : MonoBehaviour
     public Transform gunEndPoint;
 
     public float fireVelocity;
+
+    public float reloadTime;
+
+    private bool reloaded = true;
     private void Awake()
     {
         gunEndPoint = transform.Find("gunEndpoint");
+        reloaded = true;
 
     }
 
@@ -19,25 +24,15 @@ public class fireBullet : MonoBehaviour
     void Update()
     {
         handleFireEvent();
-        reload();
     }
 
     void handleFireEvent()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && reloaded)
         {
-            Vector3 mousePos = getMousePosition();
-            Vector3 gunEndPointPos = gunEndPoint.position;
-
-            // create a bullet at gun end point
-            GameObject cloneBullet = Instantiate(bullet, gunEndPointPos, Quaternion.identity);
-
-            // calculate direction for bullet
-            Vector3 direction = (mousePos - gunEndPointPos).normalized;
-
-            // give the bullet some velocity
-            cloneBullet.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
+            StartCoroutine(fire());
         }
+
     }
 
     public Vector3 getMousePosition()
@@ -46,12 +41,26 @@ public class fireBullet : MonoBehaviour
         return mousePosition;
     }
 
-    private void reload()
+    IEnumerator fire()
     {
-        float seconds = 4;
-        while (seconds > 0)
-        {
-            seconds -= Time.deltaTime;
-        }
+        reloaded = false;
+        Vector3 mousePos = getMousePosition();
+        Vector3 gunEndPointPos = gunEndPoint.position;
+
+        // create a bullet at gun end point
+        GameObject cloneBullet = Instantiate(bullet, gunEndPointPos, Quaternion.identity);
+
+        // calculate direction for bullet
+        Vector3 direction = (mousePos - gunEndPointPos).normalized;
+
+        // give the bullet some velocity
+        cloneBullet.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
+
+        yield return new WaitForSeconds(reloadTime);
+
+        reloaded = true;
     }
 }
+
+
+

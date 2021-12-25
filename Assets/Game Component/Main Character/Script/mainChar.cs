@@ -12,6 +12,8 @@ public class mainChar : MonoBehaviour
 
     private Animator animator;
 
+    public static float playerHealth;
+
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +58,7 @@ public class mainChar : MonoBehaviour
         }
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 aimDirection = (mousePosition + transform.position).normalized;
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         animator.SetFloat("xDirection", aimDirection.x);
         animator.SetFloat("yDirection", aimDirection.y);
     }
