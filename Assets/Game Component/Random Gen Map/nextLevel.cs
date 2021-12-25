@@ -17,9 +17,14 @@ public class nextLevel : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        int nextLevel = currenLevel + 1;
-        gameManeger.level = nextLevel;
-        Debug.Log("next level: " + nextLevel);
-        SceneManager.LoadScene("randomMap");
+        // if the player is enter this increse level and reloaded scenes
+        if (other.gameObject.tag == "Player")
+        {
+            int nextLevel = currenLevel + 1;
+            gameManeger.level = nextLevel;
+            Debug.Log("next level: " + nextLevel);
+            SceneManager.LoadScene("randomMap");
+        }
+
     }
 }

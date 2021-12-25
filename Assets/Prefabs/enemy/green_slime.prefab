@@ -144,8 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc648cea6ac741e458ad402f53138507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxhealth: 50
+  maxhealth: 20
   health: 0
+  animator: {fileID: 0}
 --- !u!114 &-9135465123592137052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,9 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 265bb85590b9c674ab175158146fb666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
+  moveSpeed: 2
   meter: 1
-  travelDistance: 1000
+  travelDistance: 200
 --- !u!50 &4685062296290968774
 Rigidbody2D:
   serializedVersion: 4
@@ -173,7 +174,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0

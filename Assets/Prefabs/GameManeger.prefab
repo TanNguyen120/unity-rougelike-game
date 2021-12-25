@@ -85,6 +85,7 @@ MonoBehaviour:
   - {fileID: 7220916288785699802, guid: a037711445274ee4f9b7d730f5f853a0, type: 3}
   enemys:
   - {fileID: 7009238747777757325, guid: f7e2d4d5889351141a5dd13a7e345b57, type: 3}
+  - {fileID: 2162744349822275785, guid: 4ff6ca36e450ef944bbfa755ee5ec8a3, type: 3}
   innerWallTiles:
   - {fileID: 6321136261378211114, guid: 7c90ad1b5c7951740b486ce7747d04f0, type: 3}
   - {fileID: 4671190070954602621, guid: 835f46fb46fafde49a3a071888013643, type: 3}

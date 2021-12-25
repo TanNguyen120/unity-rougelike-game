@@ -12,8 +12,7 @@ public class mainChar : MonoBehaviour
 
     private Animator animator;
 
-    public static float playerHealth;
-
+    public float playerHealth = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +21,7 @@ public class mainChar : MonoBehaviour
     }
     private void Awake()
     {
+
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -30,10 +30,12 @@ public class mainChar : MonoBehaviour
     void Update()
     {
         moveListener();
+        checkDead();
     }
 
     private void FixedUpdate()
     {
+
         SetAnimationState();
         rigidBody.velocity = moveDir * speed * Time.deltaTime;
 
@@ -48,8 +50,8 @@ public class mainChar : MonoBehaviour
     {
         if (moveDir.x == 0 && moveDir.y == 0)
         {
-            animator.SetLayerWeight(1, 0);
             animator.SetLayerWeight(0, 1);
+            animator.SetLayerWeight(1, 0);
         }
         else
         {
@@ -57,10 +59,30 @@ public class mainChar : MonoBehaviour
             animator.SetLayerWeight(1, 1);
         }
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 aimDirection = (mousePosition + transform.position).normalized;
+        Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        animator.SetFloat("xDirection", aimDirection.x);
-        animator.SetFloat("yDirection", aimDirection.y);
+        // control state base on angle
+        if (angle <= -135f || angle >= 135f)
+        {
+            animator.SetFloat("xdirection", -1f);
+            animator.SetFloat("ydirection", 0f);
+        }
+        if (angle <= 45f && angle > -35f)
+        {
+            animator.SetFloat("xdirection", 1f);
+            animator.SetFloat("ydirection", 0f);
+        }
+        if (angle < 135f && angle > 45f)
+        {
+            animator.SetFloat("ydirection", 1f);
+            animator.SetFloat("xdirection", 0f);
+        }
+        if (angle < -35f && angle > -135f)
+        {
+            animator.SetFloat("ydirection", -1f);
+            animator.SetFloat("xdirection", 0f);
+        }
+        Debug.Log("angle:" + angle);
     }
 
 
@@ -92,6 +114,20 @@ public class mainChar : MonoBehaviour
             isDashing = true;
         }
 
+    }
+
+    private void checkDead()
+    {
+        if (playerHealth <= 0)
+        {
+            Destroy(gameObject);
+            Debug.Log("Dead");
+        }
+    }
+
+    public void receiveDamage(float damage)
+    {
+        playerHealth -= damage;
     }
 }
 
