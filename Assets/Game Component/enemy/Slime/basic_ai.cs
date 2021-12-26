@@ -78,5 +78,15 @@ public class basic_ai : MonoBehaviour
         meter--;
     }
 
+    // deal damage when Collider
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            GameObject player = (GameObject)other.gameObject;
+            player.GetComponent<mainChar>().receiveDamage(5f);
+        }
+    }
+
 }
 

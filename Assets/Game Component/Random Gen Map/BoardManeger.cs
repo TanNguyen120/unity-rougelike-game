@@ -182,8 +182,8 @@ public class BoardManeger : MonoBehaviour
     // this function will setup the MAP
     public void mapGen(int level)
     {
-        column = level * 5;
-        row = level * 5;
+        column = level * 7;
+        row = level * 7;
         Count objectCount = new Count(2 * level, 6 * level);
         Count potionCount = new Count(1 * level, 2 * level);
 

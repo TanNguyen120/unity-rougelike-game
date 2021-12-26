@@ -82,7 +82,6 @@ public class mainChar : MonoBehaviour
             animator.SetFloat("ydirection", -1f);
             animator.SetFloat("xdirection", 0f);
         }
-        Debug.Log("angle:" + angle);
     }
 
 

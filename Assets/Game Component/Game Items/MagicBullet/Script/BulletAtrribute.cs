@@ -29,7 +29,6 @@ public class BulletAtrribute : MonoBehaviour
             Debug.Log("enemy detected");
             GameObject enemy = other.gameObject;
             enemy.GetComponent<lifeControl>().receiveDamage(damage);
-
         }
         Destroy(gameObject);
     }
