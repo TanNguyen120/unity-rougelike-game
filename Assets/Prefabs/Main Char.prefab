@@ -98,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 398505171138817499, guid: 0d9a3be410fe0f6459667e75c6f5ad12, type: 3}
   gunEndPoint: {fileID: 1474461542996897846}
-  fireVelocity: 80
-  reloadTime: 0.5
+  fireVelocity: 40
+  reloadTime: 2
 --- !u!1 &1474461542695684548
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &1474461542695684544
@@ -269,6 +269,7 @@ MonoBehaviour:
   speed: 5
   rigidBody: {fileID: 0}
   playerHealth: 100
+  currentHealth: 0
 --- !u!114 &1474461542695684557
 MonoBehaviour:
   m_ObjectHideFlags: 0

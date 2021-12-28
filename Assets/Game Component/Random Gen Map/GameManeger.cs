@@ -46,5 +46,6 @@ public class GameManeger : MonoBehaviour
     public void initializeGame()
     {
         boardScript.mapGen(level);
+        UIController.instance.displayLevel(level);
     }
 }

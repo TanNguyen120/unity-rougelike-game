@@ -14,6 +14,8 @@ public class mainChar : MonoBehaviour
 
     public float playerHealth = 100;
 
+    public float currentHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,7 @@ public class mainChar : MonoBehaviour
 
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        currentHealth = playerHealth;
     }
 
     // Update is called once per frame
@@ -117,7 +120,7 @@ public class mainChar : MonoBehaviour
 
     private void checkDead()
     {
-        if (playerHealth <= 0)
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
             Debug.Log("Dead");
@@ -126,7 +129,20 @@ public class mainChar : MonoBehaviour
 
     public void receiveDamage(float damage)
     {
-        playerHealth -= damage;
+        currentHealth -= damage;
+        UIController.instance.SetHealth(currentHealth / playerHealth);
+
+    }
+
+    public void restoreHealth(float amount)
+    {
+        currentHealth += amount;
+        // if we over restoreHealth the set back player health at max health
+        if (currentHealth > playerHealth)
+        {
+            currentHealth = playerHealth;
+            UIController.instance.SetHealth(currentHealth / playerHealth);
+        }
     }
 }
 

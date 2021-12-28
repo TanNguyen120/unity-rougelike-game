@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5797100902112395401}
   - component: {fileID: 6138746011970665972}
   - component: {fileID: 7983663884784696974}
+  - component: {fileID: 338682328426815974}
   m_Layer: 0
   m_Name: potion_2
   m_TagString: Untagged
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 93765401
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 25
   m_Sprite: {fileID: 21300000, guid: a5faec6a124570d4cbaa3bedd3b324b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -93,7 +94,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0005502477, y: -0.020357907}
@@ -109,3 +110,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.07306616, y: 0.09947644}
   m_EdgeRadius: 0
+--- !u!114 &338682328426815974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861347419000922613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e780e357e770c44a2ed7d6d0e8c5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 25
