@@ -58,11 +58,15 @@ public class fireBullet : MonoBehaviour
             Vector3 gunEndPointPos = gunEndPoint.position;
 
             // create a bullet at gun end point
-            GameObject cloneBullet = Instantiate(bullet, gunEndPointPos, Quaternion.identity);
 
             // calculate direction for bullet
-            Vector3 direction = (mousePos - gunEndPointPos).normalized;
+            Vector2 direction = (Vector2)(mousePos - transform.position);
 
+            GameObject cloneBullet = Instantiate(bullet, gunEndPointPos, Quaternion.identity);
+
+            direction.Normalize();
+
+            Debug.Log("Direction:" + direction);
             // give the bullet some velocity
             cloneBullet.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
 

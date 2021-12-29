@@ -12,9 +12,13 @@ public class mainChar : MonoBehaviour
 
     private Animator animator;
 
+    private Vector2 lookDirection;
+
     public float playerHealth = 100;
 
     public float currentHealth;
+
+    public Transform weaponHoldPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +31,7 @@ public class mainChar : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = playerHealth;
+        weaponHoldPoint = transform.Find("weaponHold");
     }
 
     // Update is called once per frame
@@ -34,6 +39,15 @@ public class mainChar : MonoBehaviour
     {
         moveListener();
         checkDead();
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            OpenChest();
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            switchWeapon();
+        }
     }
 
     private void FixedUpdate()
@@ -61,9 +75,13 @@ public class mainChar : MonoBehaviour
             animator.SetLayerWeight(0, 0);
             animator.SetLayerWeight(1, 1);
         }
+
+        // 4 line below is some math to calculate the look direction and angle of the gun from 0 degree
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
+        lookDirection = (Vector2)aimDirection;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+
         // control state base on angle
         if (angle <= -135f || angle >= 135f)
         {
@@ -142,6 +160,45 @@ public class mainChar : MonoBehaviour
         {
             currentHealth = playerHealth;
             UIController.instance.SetHealth(currentHealth / playerHealth);
+        }
+    }
+
+    public void OpenChest()
+    {
+        // using RaycastHit2D to detect the chest
+        RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("chest"));
+        if (hit.collider != null)
+        {
+            Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+            chest chestObject = hit.collider.GetComponent<chest>();
+            if (chestObject != null)
+            {
+                chestObject.openChest();
+            }
+        }
+    }
+
+    public void swapWeapon(GameObject ortherGun)
+    {
+        // first we destroy currently held weapon
+        GameObject currentGun = transform.Find("gun").gameObject;
+        Destroy(currentGun);
+
+        // the we assign the new weapon and move it position to player
+        ortherGun.transform.parent = transform;
+
+        ortherGun.transform.position = weaponHoldPoint.position;
+
+        ortherGun.name = "gun";
+    }
+
+    public void switchWeapon()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("gun"));
+        if (hit.collider != null)
+        {
+            Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+            swapWeapon(hit.collider.gameObject);
         }
     }
 }

@@ -13,13 +13,14 @@ public class aimTranform : MonoBehaviour
     private void Awake()
     {
         // find the transform component of child object
-        gunAimTranform = transform.Find("gun");
-        gun = GameObject.Find("gun");
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        gunAimTranform = transform.Find("gun");
+        gun = GameObject.Find("gun");
         handleAiming();
     }
 
