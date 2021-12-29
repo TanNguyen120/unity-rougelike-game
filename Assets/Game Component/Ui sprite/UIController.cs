@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
     public Image reloadMask;
 
     public Text levelDisplay;
+
+    public Text soulsAmount;
     float originalSize;
 
     void Awake()
@@ -36,8 +38,11 @@ public class UIController : MonoBehaviour
 
     public void displayLevel(int level)
     {
-        levelDisplay.text = "LEVEL: " + level;
+        levelDisplay.text = "FLOOR: " + level;
     }
 
-
+    public void displaySouls(int amount)
+    {
+        soulsAmount.text = amount.ToString();
+    }
 }

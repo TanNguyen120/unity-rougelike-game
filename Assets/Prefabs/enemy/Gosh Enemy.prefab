@@ -523,7 +523,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxhealth: 100
-  health: 0
-  animator: {fileID: 0}
   mask: {fileID: 71382426}
   healthUi: {fileID: 323662051}
+  souls: {fileID: 1223915304889322875, guid: 4f91f1d262ea3a54284773cca4027b47, type: 3}

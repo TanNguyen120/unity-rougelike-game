@@ -7,13 +7,15 @@ public class lifeControl : MonoBehaviour
 {
     public float maxhealth;
 
-    public float health;
+    float health;
 
-    public Animator animator;
+    Animator animator;
 
     public Image mask;
 
     public GameObject healthUi;
+
+    public GameObject souls;
 
     float originalSize;
 
@@ -37,9 +39,10 @@ public class lifeControl : MonoBehaviour
 
     private void checkLife()
     {
-        // destroy game object when it run out of health
+        // destroy game object when it run out of health and spawn some souls
         if (health <= 0)
         {
+            Instantiate(souls, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

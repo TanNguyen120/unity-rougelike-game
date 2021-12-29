@@ -37,6 +37,8 @@ public class BoardManeger : MonoBehaviour
 
     public GameObject exitDoor;
 
+    public GameObject[] chests;
+
     // because we have multiple tiles so we have to define an array of GameObject
     public GameObject[] floorTiles;
     public GameObject[] wallTopTiles;
@@ -179,6 +181,7 @@ public class BoardManeger : MonoBehaviour
     }
 
 
+
     // this function will setup the MAP
     public void mapGen(int level)
     {
@@ -193,6 +196,9 @@ public class BoardManeger : MonoBehaviour
 
         // create the grid system
         initializeGridSystem();
+
+        // spawn a chest
+        spawnObjectAtRandom(chests, 0, 1);
 
         //create inner wall tiles
         spawnObjectAtRandom(objects, objectCount.minimum, objectCount.maximum);

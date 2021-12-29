@@ -236,10 +236,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxhealth: 20
-  health: 0
-  animator: {fileID: 0}
   mask: {fileID: 690438020912160800}
   healthUi: {fileID: 3887823056229098112}
+  souls: {fileID: 1223915304889322875, guid: 4f91f1d262ea3a54284773cca4027b47, type: 3}
 --- !u!114 &-9135465123592137052
 MonoBehaviour:
   m_ObjectHideFlags: 0

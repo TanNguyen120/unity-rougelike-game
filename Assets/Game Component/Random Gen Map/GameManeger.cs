@@ -39,6 +39,7 @@ public class GameManeger : MonoBehaviour
     private void OnSceneLoaded(Scene aScene, LoadSceneMode aMode)
     {
         initializeGame();
+        UIController.instance.displayLevel(level);
 
     }
 
@@ -46,6 +47,5 @@ public class GameManeger : MonoBehaviour
     public void initializeGame()
     {
         boardScript.mapGen(level);
-        UIController.instance.displayLevel(level);
     }
 }

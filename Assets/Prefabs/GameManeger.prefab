@@ -61,6 +61,8 @@ MonoBehaviour:
   row: 8
   column: 19
   exitDoor: {fileID: 8443536574063678970, guid: 0bc8443198b190642a5249fbe7f1909d, type: 3}
+  chests:
+  - {fileID: 52168370243570464, guid: 60b912d99a54546478560f796c39ecb9, type: 3}
   floorTiles:
   - {fileID: 2582902752966015369, guid: d8f3015b0705baf44a64ac44677b564c, type: 3}
   - {fileID: 8168872087964541589, guid: 293eef480f6778944990840c35e3e44d, type: 3}
