@@ -10,7 +10,6 @@ public class chest : MonoBehaviour
     {
         // create the item this chest hold not far away from it position 
         Instantiate(item, transform.position + (Vector3.down * 1), Quaternion.identity);
-
         Destroy(gameObject);
     }
 }

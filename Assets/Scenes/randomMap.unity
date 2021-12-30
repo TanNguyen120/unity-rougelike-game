@@ -222,6 +222,10 @@ PrefabInstance:
       propertyPath: inventoryUi
       value: 
       objectReference: {fileID: 2049526966}
+    - target: {fileID: 1474461542684009438, guid: 0d6125143e0e9364bb0dccac21fe1189, type: 3}
+      propertyPath: fireVelocity
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1474461542695684545, guid: 0d6125143e0e9364bb0dccac21fe1189, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1652,3 +1656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538b4e7c0f9cb6c4fa3940e1dfd86b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 0}
+  fireVelocity: 0
+  reloadTime: 3

@@ -15,20 +15,15 @@ public class BulletAtrribute : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "enemy")
         {
-            Debug.Log("enemy detected");
             GameObject enemy = other.gameObject;
             enemy.GetComponent<lifeControl>().receiveDamage(damage);
         }
+        Debug.Log("Destroy");
         Destroy(gameObject);
     }
 }
