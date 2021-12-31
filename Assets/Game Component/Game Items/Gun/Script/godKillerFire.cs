@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class machineGunFire : MonoBehaviour
+public class godKillerFire : MonoBehaviour
 {
     public GameObject bullet;
     // Start is called before the first frame update
@@ -83,15 +83,23 @@ public class machineGunFire : MonoBehaviour
 
 
             // burst fire 4 bullet with fire rate is 0.2 seconds per bullet
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
                 GameObject cloneBullet = Instantiate(bullet, gunEndPointPos, Quaternion.identity);
+                GameObject cloneBullet1 = Instantiate(bullet, gunEndPointPos + new Vector3(1, 1, 0), Quaternion.identity);
+                GameObject cloneBullet2 = Instantiate(bullet, gunEndPointPos + new Vector3(1, -1, 0), Quaternion.identity);
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
                 //rotate the bullet a bit
                 cloneBullet.transform.eulerAngles = new Vector3(0, 0, angle);
+                cloneBullet1.transform.eulerAngles = new Vector3(0, 0, angle);
+                cloneBullet2.transform.eulerAngles = new Vector3(0, 0, angle);
+
+
 
                 cloneBullet.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
+                cloneBullet1.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
+                cloneBullet2.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
                 yield return new WaitForSeconds(0.2f);
 
             }

@@ -12,6 +12,7 @@ public class fireBullet : MonoBehaviour
 
     public float reloadTime = 3.0f;
 
+
     private bool reloaded = true;
 
     private float reloadTimer;
