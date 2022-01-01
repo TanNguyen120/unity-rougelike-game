@@ -16,6 +16,8 @@ public class godKillerFire : MonoBehaviour
 
     private float reloadTimer;
 
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     public void Start()
     {
         gunEndPoint = transform.Find("gunEndPoint");
@@ -23,6 +25,8 @@ public class godKillerFire : MonoBehaviour
     }
 
     // Update is called once per frame
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     void Update()
     {
         // re assign the gun end point
@@ -32,6 +36,7 @@ public class godKillerFire : MonoBehaviour
         }
         handleFireEvent();
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     void handleFireEvent()
     {
@@ -42,12 +47,14 @@ public class godKillerFire : MonoBehaviour
         reloading();
 
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public Vector3 getMousePosition()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return mousePosition;
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     IEnumerator fire()
     {
@@ -107,6 +114,7 @@ public class godKillerFire : MonoBehaviour
         }
 
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     void reloading()
     {

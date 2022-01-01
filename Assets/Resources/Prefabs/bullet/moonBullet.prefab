@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5394027790163421820}
   - component: {fileID: -4739998153631820685}
   - component: {fileID: 9036631909026314846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: moonBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

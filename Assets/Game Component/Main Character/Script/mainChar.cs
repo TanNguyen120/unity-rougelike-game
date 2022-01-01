@@ -16,23 +16,39 @@ public class mainChar : MonoBehaviour
 
     public float playerHealth = 100;
 
-    public float currentHealth;
+    private float currentHealth;
 
     public Transform weaponHoldPoint;
 
+    // save main weapon gameObject so we can re equip it next scene
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Start is called before the first frame update
     void Start()
     {
-
+        //check if we have store a weapon before
+        if (GameManeger.instance.mainWeapon.Length != 0)
+        {
+            GameObject weaponPref = Resources.Load("Prefabs/items/" + GameManeger.instance.mainWeapon) as GameObject;
+            if (weaponPref)
+            {
+                GameObject updateWeapon = Instantiate(weaponPref, transform.position, Quaternion.identity);
+                swapWeapon(updateWeapon);
+            }
+        }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     private void Awake()
     {
-
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = playerHealth;
         weaponHoldPoint = transform.Find("weaponHold");
+
+
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Update is called once per frame
     void Update()
@@ -49,6 +65,7 @@ public class mainChar : MonoBehaviour
             switchWeapon();
         }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     private void FixedUpdate()
     {
@@ -62,6 +79,7 @@ public class mainChar : MonoBehaviour
             isDashing = false;
         }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     private void SetAnimationState()
     {
@@ -105,6 +123,7 @@ public class mainChar : MonoBehaviour
         }
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     private void moveListener()
     {
@@ -135,7 +154,9 @@ public class mainChar : MonoBehaviour
         }
 
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // handle game over event
     private void checkDead()
     {
         if (currentHealth <= 0)
@@ -144,13 +165,14 @@ public class mainChar : MonoBehaviour
             Debug.Log("Dead");
         }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void receiveDamage(float damage)
     {
         currentHealth -= damage;
         UIController.instance.SetHealth(currentHealth / playerHealth);
-
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void restoreHealth(float amount)
     {
@@ -162,6 +184,7 @@ public class mainChar : MonoBehaviour
             UIController.instance.SetHealth(currentHealth / playerHealth);
         }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void OpenChest()
     {
@@ -177,12 +200,19 @@ public class mainChar : MonoBehaviour
             }
         }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // change the curret held weapon 
     public void swapWeapon(GameObject ortherGun)
     {
         // first we destroy currently held weapon
-        GameObject currentGun = transform.Find("gun").gameObject;
-        Destroy(currentGun);
+        if (transform.Find("gun"))
+        {
+            GameObject currentGun = transform.Find("gun").gameObject;
+            Destroy(currentGun);
+        }
+        Debug.Log("swap to " + ortherGun);
+
 
         // the we assign the new weapon and move it position to player
         ortherGun.transform.parent = transform;
@@ -190,15 +220,23 @@ public class mainChar : MonoBehaviour
         ortherGun.transform.position = weaponHoldPoint.position;
 
         ortherGun.name = "gun";
-    }
 
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // get the weapon in scene and swap with current held one
     public void switchWeapon()
     {
         RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("gun"));
         if (hit.collider != null)
         {
+            string weaponName = hit.collider.gameObject.name.Replace("(Clone)", "");
+            GameManeger.instance.mainWeapon = weaponName;
             Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
             swapWeapon(hit.collider.gameObject);
+
+            // assign the weapon to main weapon in gamemanager
+
         }
     }
 }
