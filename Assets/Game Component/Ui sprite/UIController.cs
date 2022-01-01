@@ -14,11 +14,13 @@ public class UIController : MonoBehaviour
     public Text levelDisplay;
 
     public Text soulsAmount;
+
     float originalSize;
 
     void Awake()
     {
         instance = this;
+        
     }
 
     void Start()
