@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8156150337670911228}
   - component: {fileID: 8156150337670911230}
-  - component: {fileID: 8156150337670911231}
+  - component: {fileID: 7722435816036277086}
   m_Layer: 0
   m_Name: GameManeger
   m_TagString: Untagged
@@ -44,9 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f9b46408146144b9114f800f8cf3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardScript: {fileID: 8156150337670911231}
+  boardScript: {fileID: 0}
+  sceneState: 0
   level: 1
---- !u!114 &8156150337670911231
+  mainWeapon: 
+  playerHealth: 0
+--- !u!114 &7722435816036277086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,30 +61,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf75b1db71771a48985efe03b2bb76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 8
-  column: 19
+  row: 1
+  column: 1
   exitDoor: {fileID: 8443536574063678970, guid: 0bc8443198b190642a5249fbe7f1909d, type: 3}
   chests:
   - {fileID: 52168370243570464, guid: 60b912d99a54546478560f796c39ecb9, type: 3}
   floorTiles:
-  - {fileID: 2582902752966015369, guid: d8f3015b0705baf44a64ac44677b564c, type: 3}
   - {fileID: 8168872087964541589, guid: 293eef480f6778944990840c35e3e44d, type: 3}
+  - {fileID: 2582902752966015369, guid: d8f3015b0705baf44a64ac44677b564c, type: 3}
   - {fileID: 1519630064706842690, guid: 4a6e7007bfe63bb49a18a06dbe281b08, type: 3}
+  - {fileID: 5203156839296045868, guid: 9d51a28d22a4546458f2e980cceb8c56, type: 3}
   wallTopTiles:
   - {fileID: 5076655329279562673, guid: 303cad8c029eeb744b8aced50723812a, type: 3}
   - {fileID: 6775056018315836692, guid: d62b3b3bce5978e4b83352d2379cd9ea, type: 3}
   - {fileID: 4558660284955970808, guid: 69ce7b89feb1f284a81ccc09cd68a6c3, type: 3}
   - {fileID: 6965542773472146186, guid: 53fe325f3c51a1b4bbc5f2c0c17fb302, type: 3}
-  - {fileID: 8511435922482413377, guid: 9a598fb08ac955c498246fdf1c1872ac, type: 3}
   wallBottomTiles:
   - {fileID: 198977204212519394, guid: b3c0c5a0fae8a314cadb68895e14738c, type: 3}
   - {fileID: 2460987737462214232, guid: d4dc1133a96074f4f8da4b6d5bbb091e, type: 3}
   - {fileID: 6548954964752310615, guid: a180c369c9ba76946a9874ba2f0a9153, type: 3}
   wallLeftTiles:
   - {fileID: 8044175686415961763, guid: 7349aa5844ee9b24bb0610818aae6d70, type: 3}
-  - {fileID: 2204215329070551898, guid: 66b2cd9b4f5d47f4591dc3fc563489d1, type: 3}
   - {fileID: 8235346674768891008, guid: 7f7e4838b83aedd4cbc807d8bf425946, type: 3}
+  - {fileID: 2204215329070551898, guid: 66b2cd9b4f5d47f4591dc3fc563489d1, type: 3}
   wallRightTiles:
+  - {fileID: 7805334176370256531, guid: a7765aa4f8a15404293aa45fb213cff7, type: 3}
+  - {fileID: 5038464524003879940, guid: f144191ec1cf00b4bb9be913216b666a, type: 3}
+  - {fileID: 7220916288785699802, guid: a037711445274ee4f9b7d730f5f853a0, type: 3}
   - {fileID: 7805334176370256531, guid: a7765aa4f8a15404293aa45fb213cff7, type: 3}
   - {fileID: 5038464524003879940, guid: f144191ec1cf00b4bb9be913216b666a, type: 3}
   - {fileID: 7220916288785699802, guid: a037711445274ee4f9b7d730f5f853a0, type: 3}
@@ -89,18 +95,16 @@ MonoBehaviour:
   - {fileID: 7009238747777757325, guid: f7e2d4d5889351141a5dd13a7e345b57, type: 3}
   - {fileID: 2162744349822275785, guid: 4ff6ca36e450ef944bbfa755ee5ec8a3, type: 3}
   innerWallTiles:
-  - {fileID: 6321136261378211114, guid: 7c90ad1b5c7951740b486ce7747d04f0, type: 3}
-  - {fileID: 4671190070954602621, guid: 835f46fb46fafde49a3a071888013643, type: 3}
+  - {fileID: 4938152973516565401, guid: 0cff8e0013fe8584a9d655c0c83dbb28, type: 3}
   potionsTiles:
   - {fileID: 2680205385554531507, guid: 2761d73768014b440b9013c1b3b96cdf, type: 3}
-  - {fileID: 6861347419000922613, guid: 64ed8eea3af56154c81a36fb9b4aca0a, type: 3}
   - {fileID: 2971277388406496130, guid: 89102705b6e8c6845bb707e3d69c1449, type: 3}
+  - {fileID: 6861347419000922613, guid: 64ed8eea3af56154c81a36fb9b4aca0a, type: 3}
   objects:
-  - {fileID: 357496511237924173, guid: c49dc9816a4115b4d81782d04315841c, type: 3}
+  - {fileID: 4938152973516565401, guid: 0cff8e0013fe8584a9d655c0c83dbb28, type: 3}
   - {fileID: 381753654468444759, guid: 21b5066ae70a5734098676e15f94e50c, type: 3}
-  - {fileID: 6321136261378211114, guid: 7c90ad1b5c7951740b486ce7747d04f0, type: 3}
+  - {fileID: 357496511237924173, guid: c49dc9816a4115b4d81782d04315841c, type: 3}
   - {fileID: 4671190070954602621, guid: 835f46fb46fafde49a3a071888013643, type: 3}
-  - {fileID: 4938152973516565401, guid: 0cff8e0013fe8584a9d655c0c83dbb28, type: 3}
-  - {fileID: 4938152973516565401, guid: 0cff8e0013fe8584a9d655c0c83dbb28, type: 3}
+  - {fileID: 6321136261378211114, guid: 7c90ad1b5c7951740b486ce7747d04f0, type: 3}
   rightCorrner: {fileID: 7844159368168165242, guid: 909d5d9951cb6314ea760f15c0ed124e, type: 3}
   leftCorrner: {fileID: 8204316287342000211, guid: 6f30e11584fb7654ea8872f64621c568, type: 3}

@@ -16,6 +16,5 @@ public class chest : MonoBehaviour
         Instantiate(items[randomIndex], transform.position + (Vector3.down * 1), Quaternion.identity);
         Destroy(gameObject);
 
-
     }
 }

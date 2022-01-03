@@ -2,19 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+public enum SceneState { beginScene, randomGenScene, bossScene }
 public class GameManeger : MonoBehaviour
 {
     // make game manager singleton
     // singleton is very useful when come to save state between scene
     public static GameManeger instance = null;
     public BoardManeger boardScript;
+    // enum is just a data class to store the scene name
+
+    public SceneState sceneState;
+
+
     // Start is called before the first frame update
 
     public int level = 1;
 
-
     //save the weapon the the player currently holding
     public string mainWeapon;
+
+    //save player health
+    public float playerHealth = 0;
+
+
+
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -32,9 +43,11 @@ public class GameManeger : MonoBehaviour
         }
         // use this to not destroy the game manager when new scene is created
         DontDestroyOnLoad(gameObject);
-
-        initializeGame();
         boardScript = GetComponent<BoardManeger>();
+        if (sceneState == SceneState.randomGenScene)
+        {
+            initializeGame();
+        }
 
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -48,8 +61,22 @@ public class GameManeger : MonoBehaviour
 
     private void OnSceneLoaded(Scene aScene, LoadSceneMode aMode)
     {
-        initializeGame();
-        UIController.instance.displayLevel(level);
+        switch (sceneState)
+        {
+
+            case SceneState.beginScene:
+                {
+                    Debug.Log("back to beginning");
+
+                }
+                break;
+            case SceneState.randomGenScene:
+                {
+                    initializeGame();
+                    UIController.instance.displayLevel(level);
+                }
+                break;
+        }
 
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------

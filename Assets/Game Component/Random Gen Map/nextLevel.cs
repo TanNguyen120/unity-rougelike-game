@@ -23,6 +23,7 @@ public class nextLevel : MonoBehaviour
             int nextLevel = currenLevel + 1;
             gameManeger.level = nextLevel;
             Debug.Log("next level: " + nextLevel);
+            gameManeger.sceneState = SceneState.randomGenScene;
             SceneManager.LoadScene("randomMap");
         }
 

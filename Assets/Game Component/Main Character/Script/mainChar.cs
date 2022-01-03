@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class mainChar : MonoBehaviour
 {
@@ -16,9 +17,12 @@ public class mainChar : MonoBehaviour
 
     public float playerHealth = 100;
 
-    private float currentHealth;
+    static float currentHealth;
 
     public Transform weaponHoldPoint;
+
+    // the flag for some thing we just want to update onetime
+    public bool oneTimeUpdate;
 
     // save main weapon gameObject so we can re equip it next scene
 
@@ -26,6 +30,7 @@ public class mainChar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        oneTimeUpdate = true;
         //check if we have store a weapon before
         if (GameManeger.instance.mainWeapon.Length != 0)
         {
@@ -36,6 +41,13 @@ public class mainChar : MonoBehaviour
                 swapWeapon(updateWeapon);
             }
         }
+
+        if (GameManeger.instance.sceneState == SceneState.beginScene)
+        {
+            Debug.Log("deactive gun");
+            GameObject gun = transform.Find("gun").gameObject;
+            gun.SetActive(false);
+        }
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -43,21 +55,31 @@ public class mainChar : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        currentHealth = playerHealth;
+        if (currentHealth == 0)
+        {
+            currentHealth = playerHealth;
+
+        }
+
         weaponHoldPoint = transform.Find("weaponHold");
-
-
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Update is called once per frame
     void Update()
     {
+        if (oneTimeUpdate)
+        {
+            oneTimeUpdate = false;
+            UIController.instance.SetHealth(currentHealth / playerHealth);
+        }
         moveListener();
         checkDead();
         if (Input.GetKeyDown(KeyCode.E))
         {
             OpenChest();
+            talkingToBugMan();
+            talkToMerchant();
         }
 
         if (Input.GetKeyDown(KeyCode.V))
@@ -161,8 +183,11 @@ public class mainChar : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            currentHealth = playerHealth;
             Debug.Log("Dead");
+            GameManeger.instance.sceneState = SceneState.beginScene;
+            // throw player back at the open scene
+            SceneManager.LoadScene(0);
         }
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -170,7 +195,9 @@ public class mainChar : MonoBehaviour
     public void receiveDamage(float damage)
     {
         currentHealth -= damage;
+
         UIController.instance.SetHealth(currentHealth / playerHealth);
+        GameManeger.instance.playerHealth = currentHealth;
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -183,7 +210,46 @@ public class mainChar : MonoBehaviour
             currentHealth = playerHealth;
             UIController.instance.SetHealth(currentHealth / playerHealth);
         }
+        else
+        {
+            UIController.instance.SetHealth(currentHealth / playerHealth);
+            GameManeger.instance.playerHealth = currentHealth;
+
+        }
+
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public void talkingToBugMan()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("npc"));
+        if (hit.collider != null)
+        {
+            Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+            bugManController bugman = hit.collider.gameObject.GetComponent<bugManController>();
+            if (bugman)
+            {
+                Debug.Log("main player talk to bug man");
+                bugman.chatting();
+            }
+        }
+
+    }
+
+    public void talkToMerchant()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("npc"));
+        if (hit.collider != null)
+        {
+            Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+            npcInteract merchant = hit.collider.gameObject.GetComponent<npcInteract>();
+            if (merchant)
+            {
+                Debug.Log("main player want to shopping");
+                merchant.chatting();
+            }
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void OpenChest()
@@ -234,9 +300,7 @@ public class mainChar : MonoBehaviour
             GameManeger.instance.mainWeapon = weaponName;
             Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
             swapWeapon(hit.collider.gameObject);
-
             // assign the weapon to main weapon in gamemanager
-
         }
     }
 }

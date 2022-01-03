@@ -20,7 +20,6 @@ public class UIController : MonoBehaviour
     void Awake()
     {
         instance = this;
-        
     }
 
     void Start()

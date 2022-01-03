@@ -10,9 +10,8 @@ public class aimTranform : MonoBehaviour
 
 
 
-    private void Awake()
+    private void Start()
     {
-        // find the transform component of child object
 
     }
 

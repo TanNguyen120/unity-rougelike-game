@@ -5,14 +5,17 @@ using UnityEngine;
 public class loader : MonoBehaviour
 {
     public GameObject gameManeger;
+    public SceneState sceneState;
     // Start is called before the first frame update
     void Awake()
     {
-        if (GameManeger.instance == null)
+        if (sceneState == SceneState.randomGenScene)
         {
-            Instantiate(gameManeger);
+            if (GameManeger.instance == null)
+            {
+                Instantiate(gameManeger);
+            }
         }
-
     }
 
     // Update is called once per frame
