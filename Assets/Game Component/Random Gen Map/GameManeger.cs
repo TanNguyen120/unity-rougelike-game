@@ -44,10 +44,7 @@ public class GameManeger : MonoBehaviour
         // use this to not destroy the game manager when new scene is created
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManeger>();
-        if (sceneState == SceneState.randomGenScene)
-        {
-            initializeGame();
-        }
+
 
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,6 +52,11 @@ public class GameManeger : MonoBehaviour
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        if (sceneState == SceneState.randomGenScene && level == 1)
+        {
+            initializeGame();
+            Debug.Log("awake gen:" + level);
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,6 +75,7 @@ public class GameManeger : MonoBehaviour
             case SceneState.randomGenScene:
                 {
                     initializeGame();
+                    Debug.Log("on scene load " + level);
                     UIController.instance.displayLevel(level);
                 }
                 break;

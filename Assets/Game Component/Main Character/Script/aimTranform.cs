@@ -8,12 +8,7 @@ public class aimTranform : MonoBehaviour
     private Transform gunAimTranform;
     private GameObject gun;
 
-
-
-    private void Start()
-    {
-
-    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Update is called once per frame
     void Update()
@@ -22,12 +17,14 @@ public class aimTranform : MonoBehaviour
         gun = GameObject.Find("gun");
         handleAiming();
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static Vector3 getMousePosition()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return mousePosition;
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void handleAiming()
     {

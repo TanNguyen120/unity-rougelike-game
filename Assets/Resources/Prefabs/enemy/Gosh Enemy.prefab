@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 71382425}
   - component: {fileID: 71382426}
   - component: {fileID: 71382424}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 323662054}
   - component: {fileID: 323662053}
   - component: {fileID: 323662052}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 1867998214}
   - component: {fileID: 1867998216}
   - component: {fileID: 1867998215}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 1999372679}
   - component: {fileID: 1999372681}
   - component: {fileID: 1999372680}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: healthBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 7009238747777757319}
   - component: {fileID: 7009238747777757318}
   - component: {fileID: 3007409432508480775}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: Gosh Enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4813497408014269172}
   - component: {fileID: 690438020912160800}
   - component: {fileID: 7700667583114502248}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 2780084385893321002}
   - component: {fileID: -9135465123592137052}
   - component: {fileID: 4685062296290968774}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: green_slime
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -119,14 +119,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2162744349822275785}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -14.3717, y: 0.3119, z: 0}
   m_LocalScale: {x: 1.2699919, y: 1.1518, z: 1}
   m_Children:
   - {fileID: 4875920223949914359}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &2162744349822275791
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 3629181845210761857}
   - component: {fileID: 7157800771037565765}
   - component: {fileID: 8304610820640684782}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 3196186643261322130}
   - component: {fileID: 4343926624431762397}
   - component: {fileID: 478809643144514928}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 8352955555404844043}
   - component: {fileID: 1542804470034481496}
   - component: {fileID: 7226533556162493741}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: healthBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

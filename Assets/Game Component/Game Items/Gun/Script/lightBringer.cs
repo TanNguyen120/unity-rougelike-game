@@ -2,43 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fireBullet : MonoBehaviour
+public class lightBringer : MonoBehaviour
 {
+    // Start is called before the first frame update
     public GameObject bullet;
     // Start is called before the first frame update
-    public Transform gunEndPoint;
+    Transform gunEndPoint;
 
     public float fireVelocity;
 
-    public float reloadTime = 3.0f;
+    public float reloadTime = 0.3f;
 
-
+    public float meleesDamage;
     private bool reloaded = true;
 
     private float reloadTimer;
 
+
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    private void Awake()
+    public void Start()
     {
-        gunEndPoint = transform.Find("gunEndpoint");
+        gunEndPoint = transform.Find("gunEndPoint");
         reloaded = true;
-
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Update is called once per frame
     void Update()
     {
+        // re assign the gun end point
+        if (gunEndPoint == null)
+        {
+            gunEndPoint = transform.Find("gunEndPoint");
+        }
         handleFireEvent();
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "enemy")
+        {
+            other.gameObject.GetComponent<lifeControl>().receiveDamage(meleesDamage);
+        }
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     void handleFireEvent()
     {
         if (Input.GetMouseButton(0))
         {
-            fire();
+            StartCoroutine(fire());
         }
         reloading();
 
@@ -52,14 +68,10 @@ public class fireBullet : MonoBehaviour
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    void fire()
+    IEnumerator fire()
     {
         // if reloading we return no thing
-        if (reloaded == false)
-        {
-            return;
-        }
-        else
+        if (reloaded == true)
         {
             Vector3 mousePos = getMousePosition();
             Vector3 gunEndPointPos = gunEndPoint.position;
@@ -69,20 +81,46 @@ public class fireBullet : MonoBehaviour
             // calculate direction for bullet
             Vector2 direction = (Vector2)(mousePos - transform.position);
 
-            GameObject cloneBullet = Instantiate(bullet, gunEndPointPos, Quaternion.identity);
+
 
             direction.Normalize();
 
-            // give the bullet some velocity
-            cloneBullet.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
-            Debug.Log("fire: " + cloneBullet.gameObject.name);
+            // this gun will fire 3 bullet 
+
+
+            // wait for some time before fire another bullets
+
 
             // set up variables for reloading
             reloaded = false;
             reloadTimer = 0;
 
+
+
             // deplete all mana from mana bar
             UIController.instance.SetMana(0);
+
+
+            // burst fire 4 bullet with fire rate is 0.2 seconds per bullet
+            for (int i = 0; i < 2; i++)
+            {
+                GameObject cloneBullet = Instantiate(bullet, gunEndPointPos + new Vector3(0, -0.5f, 0), Quaternion.identity);
+                GameObject cloneBullet1 = Instantiate(bullet, gunEndPointPos + new Vector3(0, 0.5f, 0), Quaternion.identity);
+
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                //rotate the bullet a bit
+                cloneBullet.transform.eulerAngles = new Vector3(0, 0, angle);
+                cloneBullet1.transform.eulerAngles = new Vector3(0, 0, angle);
+
+
+
+
+                cloneBullet.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
+                cloneBullet1.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
+                yield return new WaitForSeconds(0.2f);
+
+            }
 
         }
 
@@ -109,6 +147,3 @@ public class fireBullet : MonoBehaviour
         }
     }
 }
-
-
-
