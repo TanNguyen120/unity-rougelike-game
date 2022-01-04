@@ -12,7 +12,7 @@ public class souls : MonoBehaviour
 
         if (player.tag == "Player")
         {
-            player.GetComponent<inventory>().absorbSouls(amount);
+            GameManeger.instance.absorbSouls(amount);
             Destroy(gameObject);
         }
     }

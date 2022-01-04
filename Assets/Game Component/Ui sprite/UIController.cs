@@ -15,6 +15,8 @@ public class UIController : MonoBehaviour
 
     public Text soulsAmount;
 
+    public GameObject mainWeaponImage;
+
     float originalSize;
 
     void Awake()
@@ -45,5 +47,10 @@ public class UIController : MonoBehaviour
     public void displaySouls(int amount)
     {
         soulsAmount.text = amount.ToString();
+    }
+
+    public void displayMainWeapon(Sprite weaponSprite)
+    {
+        mainWeaponImage.GetComponent<Image>().sprite = weaponSprite;
     }
 }

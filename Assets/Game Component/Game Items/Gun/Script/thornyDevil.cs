@@ -5,21 +5,109 @@ using UnityEngine;
 public class thornyDevil : MonoBehaviour
 {
 
-    private GameObject bullet;
-    public int interpolationFramesCount = 45; // Number of frames to completely interpolate between the 2 positions
-    int elapsedFrames = 0;
+    public GameObject bullet;
+    // Start is called before the first frame update
+    public Transform gunEndPoint;
+
+    public float fireVelocity;
+
+    public float reloadTime = 3.0f;
+
+
+    private bool reloaded = true;
+
+    private float reloadTimer;
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    private void Awake()
+    {
+        gunEndPoint = transform.Find("gunEndPoint");
+        reloaded = true;
+
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Update is called once per frame
     void Update()
     {
-        float interpolationRatio = (float)elapsedFrames / interpolationFramesCount;
-
-        Vector3 interpolatedPosition = Vector3.Lerp(Vector3.up, Vector3.forward, interpolationRatio);
-
-        elapsedFrames = (elapsedFrames + 1) % (interpolationFramesCount + 1);  // reset elapsedFrames to zero after it reached (interpolationFramesCount + 1)
-
-        Debug.DrawLine(Vector3.zero, Vector3.up, Color.green);
-        Debug.DrawLine(Vector3.zero, Vector3.forward, Color.blue);
-        Debug.DrawLine(Vector3.zero, interpolatedPosition, Color.yellow);
+        handleFireEvent();
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    void handleFireEvent()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            fire();
+        }
+        reloading();
+
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public Vector3 getMousePosition()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return mousePosition;
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    void fire()
+    {
+        // if reloading we return no thing
+        if (reloaded == false)
+        {
+            return;
+        }
+        else
+        {
+            Vector3 mousePos = getMousePosition();
+            Vector3 gunEndPointPos = gunEndPoint.position;
+
+            // create a bullet at gun end point
+
+            // calculate direction for bullet
+            Vector2 direction = (Vector2)(mousePos - transform.position);
+
+            GameObject cloneBullet = Instantiate(bullet, gunEndPointPos, Quaternion.identity);
+
+            direction.Normalize();
+
+            // give the bullet some velocity
+            Debug.Log("fire: " + cloneBullet.gameObject.name);
+
+            // set up variables for reloading
+            reloaded = false;
+            reloadTimer = 0;
+
+            // deplete all mana from mana bar
+            UIController.instance.SetMana(0);
+
+        }
+
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    void reloading()
+    {
+        if (reloaded == false)
+        {
+
+            // Time.deltaTime is exactly 1 seconds so it very useful to do count down or count up
+            reloadTimer += Time.deltaTime;
+
+            // set the bar of mana ui
+            UIController.instance.SetMana(reloadTimer / reloadTime);
+            // count down to 0 to reload
+            if (reloadTimer > reloadTime)
+            {
+                reloadTimer = reloadTime;
+                reloaded = true;
+                UIController.instance.SetMana(1);
+            }
+        }
+    }
+
+
 }

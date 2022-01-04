@@ -32,14 +32,19 @@ public class mainChar : MonoBehaviour
     {
         oneTimeUpdate = true;
         //check if we have store a weapon before
-        if (GameManeger.instance.mainWeapon.Length != 0)
+        if (GameManeger.instance.mainWeaponData.itemName.Length != 0)
         {
-            GameObject weaponPref = Resources.Load("Prefabs/items/" + GameManeger.instance.mainWeapon) as GameObject;
+            GameObject weaponPref = Resources.Load("Prefabs/items/" + GameManeger.instance.mainWeaponData.itemName) as GameObject;
             if (weaponPref)
             {
                 GameObject updateWeapon = Instantiate(weaponPref, transform.position, Quaternion.identity);
                 swapWeapon(updateWeapon);
             }
+        }
+        else
+        {
+            // if not store we assign the default weapon
+            storeMainWeapon();
         }
 
         if (GameManeger.instance.sceneState == SceneState.beginScene)
@@ -72,6 +77,7 @@ public class mainChar : MonoBehaviour
         {
             oneTimeUpdate = false;
             UIController.instance.SetHealth(currentHealth / playerHealth);
+            storeMainWeapon();
         }
         moveListener();
         checkDead();
@@ -297,11 +303,22 @@ public class mainChar : MonoBehaviour
         if (hit.collider != null)
         {
             string weaponName = hit.collider.gameObject.name.Replace("(Clone)", "");
-            GameManeger.instance.mainWeapon = weaponName;
+            Sprite weaponSprite = hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
+            GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
             Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
             swapWeapon(hit.collider.gameObject);
             // assign the weapon to main weapon in gamemanager
         }
+    }
+
+    void storeMainWeapon()
+    {
+        GameObject defaultWeapon = transform.Find("gun").gameObject;
+        string weaponName = defaultWeapon.name;
+        Sprite weaponSprite = defaultWeapon.GetComponent<SpriteRenderer>().sprite;
+        Debug.Log("assing weapon: " + weaponName + weaponSprite);
+        GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
+
     }
 }
 
