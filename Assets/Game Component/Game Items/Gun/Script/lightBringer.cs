@@ -54,10 +54,13 @@ public class lightBringer : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            StartCoroutine(fire());
-        }
-        reloading();
+            if (!GameManeger.instance.isPaused)
+            {
+                StartCoroutine(fire());
+            }
+            reloading();
 
+        }
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 

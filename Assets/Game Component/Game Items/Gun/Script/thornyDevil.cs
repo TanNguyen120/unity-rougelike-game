@@ -37,7 +37,7 @@ public class thornyDevil : MonoBehaviour
 
     void handleFireEvent()
     {
-        if (Input.GetMouseButton(0))
+        if (!GameManeger.instance.isPaused)
         {
             fire();
         }

@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle_2
       objectReference: {fileID: 0}
+    - target: {fileID: 78532844628222601, guid: 6efe9d767a845a846a88e38ca86df7a2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 415344222530083365, guid: 6efe9d767a845a846a88e38ca86df7a2, type: 3}
       propertyPath: m_Sprite
       value: 

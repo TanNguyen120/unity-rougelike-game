@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7738921307613550064}
   - component: {fileID: 7738921307613550031}
   m_Layer: 11
-  m_Name: Thorny Devil
+  m_Name: ThornyDevil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

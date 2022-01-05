@@ -42,7 +42,10 @@ public class godKillerFire : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            StartCoroutine(fire());
+            if (!GameManeger.instance.isPaused)
+            {
+                StartCoroutine(fire());
+            }
         }
         reloading();
 

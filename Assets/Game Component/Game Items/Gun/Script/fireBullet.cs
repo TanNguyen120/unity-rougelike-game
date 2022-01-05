@@ -38,7 +38,10 @@ public class fireBullet : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            fire();
+            if (!GameManeger.instance.isPaused)
+            {
+                fire();
+            }
         }
         reloading();
 

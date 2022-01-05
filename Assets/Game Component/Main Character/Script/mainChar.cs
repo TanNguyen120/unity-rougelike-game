@@ -32,20 +32,7 @@ public class mainChar : MonoBehaviour
     {
         oneTimeUpdate = true;
         //check if we have store a weapon before
-        if (GameManeger.instance.mainWeaponData.itemName.Length != 0)
-        {
-            GameObject weaponPref = Resources.Load("Prefabs/items/" + GameManeger.instance.mainWeaponData.itemName) as GameObject;
-            if (weaponPref)
-            {
-                GameObject updateWeapon = Instantiate(weaponPref, transform.position, Quaternion.identity);
-                swapWeapon(updateWeapon);
-            }
-        }
-        else
-        {
-            // if not store we assign the default weapon
-            storeMainWeapon();
-        }
+
 
         if (GameManeger.instance.sceneState == SceneState.beginScene)
         {
@@ -77,7 +64,28 @@ public class mainChar : MonoBehaviour
         {
             oneTimeUpdate = false;
             UIController.instance.SetHealth(currentHealth / playerHealth);
-            storeMainWeapon();
+
+            // get the weapon info from gameManeger
+            if (GameManeger.instance.mainWeaponData.itemName.Length > 0)
+            {
+                GameObject weaponPref = Resources.Load("Prefabs/items/" + GameManeger.instance.mainWeaponData.itemName) as GameObject;
+                if (weaponPref)
+                {
+                    GameObject updateWeapon = Instantiate(weaponPref, transform.position, Quaternion.identity);
+                    swapWeapon(updateWeapon);
+                }
+            }
+            else
+            {
+                // if not store we assign the default weapon
+                storeMainWeapon();
+                // and add it to inventory
+                GameObject defaultWeapon = transform.Find("gun").gameObject;
+                string weaponName = defaultWeapon.name;
+                Sprite weaponSprite = defaultWeapon.GetComponent<SpriteRenderer>().sprite;
+                itemsData mainWeaponData = new itemsData { itemName = weaponName, itemIcon = weaponSprite };
+                GameManeger.instance.addToInventory(mainWeaponData);
+            }
         }
         moveListener();
         checkDead();
@@ -299,15 +307,27 @@ public class mainChar : MonoBehaviour
     // get the weapon in scene and swap with current held one
     public void switchWeapon()
     {
-        RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("gun"));
-        if (hit.collider != null)
+        if (!GameManeger.instance.inventoryFull)
         {
-            string weaponName = hit.collider.gameObject.name.Replace("(Clone)", "");
-            Sprite weaponSprite = hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
-            GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
-            Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
-            swapWeapon(hit.collider.gameObject);
-            // assign the weapon to main weapon in gamemanager
+            RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 2.5f, LayerMask.GetMask("gun"));
+            if (hit.collider != null)
+            {
+                string weaponName = hit.collider.gameObject.name.Replace("(Clone)", "");
+                Sprite weaponSprite = hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
+                GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
+                Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+
+                // make an item data and add it to inventory
+                itemsData weapon = new itemsData { itemName = weaponName, itemIcon = weaponSprite };
+                GameManeger.instance.addToInventory(weapon);
+
+                //finally swap the current held weapon to the new one
+                swapWeapon(hit.collider.gameObject);
+            }
+        }
+        else
+        {
+            Debug.Log("cant pick up");
         }
     }
 
