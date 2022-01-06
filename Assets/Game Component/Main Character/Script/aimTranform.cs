@@ -28,21 +28,26 @@ public class aimTranform : MonoBehaviour
 
     public void handleAiming()
     {
-        Vector3 mousePos = getMousePosition();
-        // tim vector phap tuyen giua 2 diem
-        Vector3 aimDirection = (mousePos - gunAimTranform.position).normalized;
-
-
-        // tim goc tao boi vecto phap tuyen, theo degree
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-
-
-        gun.GetComponent<SpriteRenderer>().flipY = false;
-        if (angle > 90f || angle < -90f)
+        if (!GameManeger.instance.isPaused)
         {
-            gun.GetComponent<SpriteRenderer>().flipY = true;
+            Vector3 mousePos = getMousePosition();
+            // tim vector phap tuyen giua 2 diem
+            Vector3 aimDirection = (mousePos - gunAimTranform.position).normalized;
+
+
+            // tim goc tao boi vecto phap tuyen, theo degree
+            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+
+
+            gun.GetComponent<SpriteRenderer>().flipY = false;
+            if (angle > 90f || angle < -90f)
+            {
+                gun.GetComponent<SpriteRenderer>().flipY = true;
+            }
+            gunAimTranform.eulerAngles = new Vector3(0, 0, angle);
+            // flip gun sprite if it go left
+
         }
-        gunAimTranform.eulerAngles = new Vector3(0, 0, angle);
-        // flip gun sprite if it go left
+
     }
 }

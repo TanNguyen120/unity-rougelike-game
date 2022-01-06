@@ -97,10 +97,17 @@ public class UIController : MonoBehaviour
             itemsImage[i].sprite = weapons[i].itemIcon;
             inventorySlot slot = itemsImage[i].GetComponent<inventorySlot>();
             slot.isFull = true;
+            slot.changeName(weapons[i].itemName);
             itemsImage[i].color = new Color(1, 1, 1, 1);
+            //set pointer if it the main weapon
+            if (weapons[i].itemName == GameManeger.instance.mainWeaponData.itemName)
+            {
+                slot.setPointer();
+            }
         }
 
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void showInventoryFunc()
     {
@@ -118,5 +125,15 @@ public class UIController : MonoBehaviour
         }
         inventoryUi.SetActive(showInventory);
         showItems();
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public void resetAllPointer()
+    {
+        for (int i = 0; i < itemsImage.Count; i++)
+        {
+            inventorySlot slot = itemsImage[i].GetComponent<inventorySlot>();
+            slot.removePointer();
+        }
     }
 }
