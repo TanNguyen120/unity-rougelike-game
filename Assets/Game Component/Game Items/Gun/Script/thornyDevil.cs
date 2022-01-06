@@ -39,10 +39,12 @@ public class thornyDevil : MonoBehaviour
     {
         if (!GameManeger.instance.isPaused)
         {
-            fire();
+            if (Input.GetMouseButton(0))
+            {
+                fire();
+            }
         }
         reloading();
-
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 

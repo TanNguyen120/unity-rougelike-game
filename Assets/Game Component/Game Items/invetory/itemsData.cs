@@ -8,8 +8,16 @@ using UnityEngine.UI;
 [System.Serializable]
 public class itemsData
 {
+    [SerializeField]
     public Sprite itemIcon { get; set; }
+
+    [SerializeField]
     public string itemName { get; set; }
+
+    [SerializeField]
+    public bool isMainWeapon { get; set; }
+
+    public int inventorySlot { get; set; }
 
 }
 

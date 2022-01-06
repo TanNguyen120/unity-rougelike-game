@@ -145,9 +145,16 @@ public class GameManeger : MonoBehaviour
     {
         if (inventory.Count < 4)
         {
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                inventory[i].isMainWeapon = false;
+            }
+            item.inventorySlot = inventory.Count;
             inventory.Add(item);
-            Debug.Log("add to inventory: " + item.itemName);
-            Debug.Log("count: " + inventory.Count);
+            Debug.Log("add to inventory: " + item.itemName + "at slot: " + item.inventorySlot);
+
+            // re toggle the is mainWeapon in inventory
+
             inventoryFull = false;
         }
         else
@@ -162,11 +169,23 @@ public class GameManeger : MonoBehaviour
     {
         mainWeaponData.itemName = weaponName;
         mainWeaponData.itemIcon = weaponSprite;
+        mainWeaponData.isMainWeapon = true;
         Debug.Log("main weapon is: " + mainWeaponData.itemName);
         // display it to UI
         UIController.instance.displayMainWeapon(mainWeaponData.itemIcon);
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public void changeMainWeapon(int slotNumber)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            inventory[i].isMainWeapon = false;
+        }
+        inventory[slotNumber].isMainWeapon = true;
+
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     public void pauseGame()
     {

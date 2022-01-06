@@ -92,15 +92,21 @@ public class UIController : MonoBehaviour
     public void showItems()
     {
         List<itemsData> weapons = GameManeger.instance.inventory;
+
+        // loop through the inventory to show to UI
         for (int i = 0; i < weapons.Count; i++)
         {
             itemsImage[i].sprite = weapons[i].itemIcon;
             inventorySlot slot = itemsImage[i].GetComponent<inventorySlot>();
+            slot.removePointer();
             slot.isFull = true;
             slot.changeName(weapons[i].itemName);
+            slot.inventorySlotNumber = weapons[i].inventorySlot;
+            // set color so it visible when show
             itemsImage[i].color = new Color(1, 1, 1, 1);
+            Debug.Log("weapon: " + weapons[i].itemName + "main weapon: " + weapons[i].isMainWeapon);
             //set pointer if it the main weapon
-            if (weapons[i].itemName == GameManeger.instance.mainWeaponData.itemName)
+            if (weapons[i].isMainWeapon)
             {
                 slot.setPointer();
             }

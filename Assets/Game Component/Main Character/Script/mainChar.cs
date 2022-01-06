@@ -83,7 +83,7 @@ public class mainChar : MonoBehaviour
                 GameObject defaultWeapon = transform.Find("gun").gameObject;
                 string weaponName = defaultWeapon.name;
                 Sprite weaponSprite = defaultWeapon.GetComponent<SpriteRenderer>().sprite;
-                itemsData mainWeaponData = new itemsData { itemName = weaponName, itemIcon = weaponSprite };
+                itemsData mainWeaponData = new itemsData { itemName = weaponName, itemIcon = weaponSprite, isMainWeapon = true };
                 GameManeger.instance.addToInventory(mainWeaponData);
             }
         }
@@ -282,7 +282,7 @@ public class mainChar : MonoBehaviour
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    // change the curret held weapon 
+    // change the curret held weapon when pick up
     public void swapWeapon(GameObject ortherGun)
     {
         // first we destroy currently held weapon
@@ -299,6 +299,14 @@ public class mainChar : MonoBehaviour
 
         ortherGun.transform.position = weaponHoldPoint.position;
 
+        string weaponName = ortherGun.gameObject.name.Replace("(Clone)", "");
+        Sprite weaponSprite = ortherGun.GetComponent<SpriteRenderer>().sprite;
+        GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
+
+        // make an item data and add it to inventory
+        itemsData weapon = new itemsData { itemName = weaponName, itemIcon = weaponSprite, isMainWeapon = true };
+        GameManeger.instance.addToInventory(weapon);
+
         ortherGun.name = "gun";
 
     }
@@ -312,16 +320,9 @@ public class mainChar : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 2.5f, LayerMask.GetMask("gun"));
             if (hit.collider != null)
             {
-                string weaponName = hit.collider.gameObject.name.Replace("(Clone)", "");
-                Sprite weaponSprite = hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
-                GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
                 Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
 
-                // make an item data and add it to inventory
-                itemsData weapon = new itemsData { itemName = weaponName, itemIcon = weaponSprite };
-                GameManeger.instance.addToInventory(weapon);
-
-                //finally swap the current held weapon to the new one
+                //swap the current held weapon to the new one
                 swapWeapon(hit.collider.gameObject);
             }
         }
@@ -330,7 +331,10 @@ public class mainChar : MonoBehaviour
             Debug.Log("cant pick up");
         }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+    // set main weapon section in game manager
     void storeMainWeapon()
     {
         GameObject defaultWeapon = transform.Find("gun").gameObject;
@@ -338,7 +342,34 @@ public class mainChar : MonoBehaviour
         Sprite weaponSprite = defaultWeapon.GetComponent<SpriteRenderer>().sprite;
         Debug.Log("assing weapon: " + weaponName + weaponSprite);
         GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
-
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // this func is for swap weapon in inventory so we dont need to add a new item to inventory
+    public void changeMainWeapon(GameObject ortherGun)
+    {
+        // first we destroy currently held weapon
+        if (transform.Find("gun"))
+        {
+            GameObject currentGun = transform.Find("gun").gameObject;
+            Destroy(currentGun);
+        }
+        Debug.Log("swap to " + ortherGun);
+
+
+        // the we assign the new weapon and move it position to player
+        ortherGun.transform.parent = transform;
+
+        ortherGun.transform.position = weaponHoldPoint.position;
+
+        string weaponName = ortherGun.gameObject.name.Replace("(Clone)", "");
+        Sprite weaponSprite = ortherGun.GetComponent<SpriteRenderer>().sprite;
+        GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
+
+        // make an item data and add it to inventory
+        itemsData weapon = new itemsData { itemName = weaponName, itemIcon = weaponSprite, isMainWeapon = true };
+
+        ortherGun.name = "gun";
+    }
+
 }
 
