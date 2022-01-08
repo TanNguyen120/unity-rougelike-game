@@ -53,6 +53,15 @@ public class inventorySlot : MonoBehaviour, IPointerClickHandler
                 else
                 {
                     Debug.Log("drop at slot: " + inventorySlotNumber);
+
+                    GameManeger.instance.dropItem(inventorySlotNumber);
+
+                    //removeSlot();
+
+                    UIController.instance.showItems();
+
+                    // toggle isFull to not show this slot image 
+                    isFull = false;
                 }
             }
         }
@@ -72,5 +81,12 @@ public class inventorySlot : MonoBehaviour, IPointerClickHandler
     public void changeName(string name)
     {
         gameObject.name = name;
+    }
+
+    public void removeSlot()
+    {
+        GetComponent<Image>().sprite = null;
+        GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        name = "itemImage";
     }
 }

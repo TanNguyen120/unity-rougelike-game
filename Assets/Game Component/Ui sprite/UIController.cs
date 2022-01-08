@@ -93,9 +93,13 @@ public class UIController : MonoBehaviour
     {
         List<itemsData> weapons = GameManeger.instance.inventory;
 
+        // before we show the weapon we have to clear it first
+        resetInventory();
         // loop through the inventory to show to UI
         for (int i = 0; i < weapons.Count; i++)
         {
+
+            //------------------------------
             itemsImage[i].sprite = weapons[i].itemIcon;
             inventorySlot slot = itemsImage[i].GetComponent<inventorySlot>();
             slot.removePointer();
@@ -123,14 +127,16 @@ public class UIController : MonoBehaviour
         {
             GameManeger.instance.pauseGame();
             GameManeger.instance.isPaused = true;
+            showItems();
         }
         else
         {
             GameManeger.instance.resumeGame();
             GameManeger.instance.isPaused = false;
+            resetInventory();
         }
         inventoryUi.SetActive(showInventory);
-        showItems();
+
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -140,6 +146,18 @@ public class UIController : MonoBehaviour
         {
             inventorySlot slot = itemsImage[i].GetComponent<inventorySlot>();
             slot.removePointer();
+        }
+    }
+
+    public void resetInventory()
+    {
+        resetAllPointer();
+
+        // remove all sprite from inventory slot
+        for (int i = 0; i < itemsImage.Count; i++)
+        {
+            inventorySlot slot = itemsImage[i].GetComponent<inventorySlot>();
+            slot.removeSlot();
         }
     }
 }

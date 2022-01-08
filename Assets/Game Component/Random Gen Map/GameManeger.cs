@@ -165,6 +165,7 @@ public class GameManeger : MonoBehaviour
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // this is for the main weapon item data so we can show it in a box in UI 
     public void assignMainWeapon(string weaponName, Sprite weaponSprite)
     {
         mainWeaponData.itemName = weaponName;
@@ -175,6 +176,7 @@ public class GameManeger : MonoBehaviour
         UIController.instance.displayMainWeapon(mainWeaponData.itemIcon);
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // change the main weapon in inventory not relate to the function above
     public void changeMainWeapon(int slotNumber)
     {
         for (int i = 0; i < inventory.Count; i++)
@@ -185,6 +187,25 @@ public class GameManeger : MonoBehaviour
 
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // drop the weapon in inventory
+    public void dropItem(int slotNumber)
+    {
+        if (!inventory[slotNumber].isMainWeapon)
+        {
+            // CLONE THE PREFABS
+
+            GameObject dropItem = Instantiate(Resources.Load("Prefabs/items/" + inventory[slotNumber].itemName) as GameObject);
+            dropItem.transform.position = gameObject.transform.position + new Vector3(1, -1, 0);
+            inventory.RemoveAt(slotNumber);
+        }
+
+
+    }
+
+
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
     public void pauseGame()
