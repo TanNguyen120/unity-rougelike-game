@@ -24,6 +24,7 @@ public class mainChar : MonoBehaviour
     // the flag for some thing we just want to update onetime
     public bool oneTimeUpdate;
 
+    [SerializeField] GameObject mainWeapon;
     // save main weapon gameObject so we can re equip it next scene
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -269,7 +270,7 @@ public class mainChar : MonoBehaviour
     public void OpenChest()
     {
         // using RaycastHit2D to detect the chest
-        RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("chest"));
+        RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 3f, LayerMask.GetMask("chest"));
         if (hit.collider != null)
         {
             Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
@@ -286,16 +287,12 @@ public class mainChar : MonoBehaviour
     public void swapWeapon(GameObject ortherGun)
     {
         // first we destroy currently held weapon
-        if (transform.Find("gun"))
-        {
-            GameObject currentGun = transform.Find("gun").gameObject;
-            Destroy(currentGun);
-        }
+
         Debug.Log("swap to " + ortherGun);
 
 
         // the we assign the new weapon and move it position to player
-        ortherGun.transform.parent = transform;
+        ortherGun.transform.parent = gameObject.transform;
 
         ortherGun.transform.position = weaponHoldPoint.position;
 
@@ -307,8 +304,13 @@ public class mainChar : MonoBehaviour
         itemsData weapon = new itemsData { itemName = weaponName, itemIcon = weaponSprite, isMainWeapon = true };
         GameManeger.instance.addToInventory(weapon);
 
+        if (gameObject.transform.Find("gun"))
+        {
+            Debug.Log("finned" + transform.Find("gun").name);
+            GameObject currentGun = gameObject.transform.Find("gun").gameObject;
+            Destroy(currentGun);
+        }
         ortherGun.name = "gun";
-
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -323,6 +325,7 @@ public class mainChar : MonoBehaviour
                 Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
 
                 //swap the current held weapon to the new one
+                
                 swapWeapon(hit.collider.gameObject);
             }
         }

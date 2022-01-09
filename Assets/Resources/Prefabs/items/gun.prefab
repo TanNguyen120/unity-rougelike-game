@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8055800074181785270}
   - component: {fileID: 8055800074181785269}
   - component: {fileID: 8055800074181785268}
+  - component: {fileID: -3306312471726105219}
+  - component: {fileID: -1151006189818054311}
   m_Layer: 11
   m_Name: gun
   m_TagString: Untagged
@@ -26,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8055800074181785271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0233, y: -0.101, z: -1}
-  m_LocalScale: {x: 5.5908003, y: 6, z: 1}
+  m_LocalPosition: {x: -0.0562, y: -0.0747, z: -1}
+  m_LocalScale: {x: 5.3559866, y: 5.4156, z: 1}
   m_Children:
   - {fileID: 8055800074342622556}
   m_Father: {fileID: 0}
@@ -100,6 +102,34 @@ MonoBehaviour:
   gunEndPoint: {fileID: 8055800074342622556}
   fireVelocity: 40
   reloadTime: 0.2
+--- !u!65 &-3306312471726105219
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8055800074181785271}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.22107656, y: 0.051150165, z: 0.2}
+  m_Center: {x: 0.02946155, y: 0.01942486, z: 0}
+--- !u!114 &-1151006189818054311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8055800074181785271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60aeecfee0a3e434381bd6f5f32c1b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 20
+  tooltip: It will get the job done
+  weight: 10
 --- !u!1 &8055800074342622557
 GameObject:
   m_ObjectHideFlags: 0

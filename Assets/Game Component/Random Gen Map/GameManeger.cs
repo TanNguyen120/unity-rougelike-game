@@ -99,6 +99,11 @@ public class GameManeger : MonoBehaviour
                 break;
             case SceneState.randomGenScene:
                 {
+                    if (level % 3 == 0)
+                    {
+                        SceneManager.LoadScene(0);
+                        sceneState = SceneState.beginScene;
+                    }
                     initializeGame();
                     Debug.Log("on scene load " + level);
                     UIController.instance.displayLevel(level);
@@ -154,7 +159,6 @@ public class GameManeger : MonoBehaviour
             Debug.Log("add to inventory: " + item.itemName + "at slot: " + item.inventorySlot);
 
             // re toggle the is mainWeapon in inventory
-
             inventoryFull = false;
         }
         else
@@ -192,11 +196,13 @@ public class GameManeger : MonoBehaviour
     {
         if (!inventory[slotNumber].isMainWeapon)
         {
-            // CLONE THE PREFABS
 
+            // CLONE THE PREFABS
             GameObject dropItem = Instantiate(Resources.Load("Prefabs/items/" + inventory[slotNumber].itemName) as GameObject);
-            dropItem.transform.position = gameObject.transform.position + new Vector3(1, -1, 0);
+            GameObject mainChar = GameObject.Find("Main Char");
+            dropItem.transform.position = mainChar.transform.position + new Vector3(1, -1, 0);
             inventory.RemoveAt(slotNumber);
+            inventoryFull = false;
         }
 
 

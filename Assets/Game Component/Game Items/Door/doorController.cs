@@ -44,8 +44,19 @@ public class doorController : MonoBehaviour
             Debug.Log("EnterDoor: go to random gen map scene");
             // tell game manager to gen map in new scene
             GameManeger.instance.sceneState = SceneState.randomGenScene;
-            GameManeger.instance.level = 1;
-            SceneManager.LoadScene("randomMap");
+            if (GameManeger.instance.level > 1)
+            {
+                GameManeger.instance.level += 1;
+                SceneManager.LoadScene("randomMap");
+
+            }
+            else
+            {
+                GameManeger.instance.level = 1;
+                SceneManager.LoadScene("randomMap");
+
+            }
+
         }
     }
 }

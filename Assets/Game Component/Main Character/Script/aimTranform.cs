@@ -13,9 +13,13 @@ public class aimTranform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gunAimTranform = transform.Find("gun");
-        gun = GameObject.Find("gun");
-        handleAiming();
+        if (gameObject.transform.Find("gun"))
+        {
+            gunAimTranform = gameObject.transform.Find("gun");
+            gun = GameObject.Find("gun");
+            handleAiming();
+        }
+
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 

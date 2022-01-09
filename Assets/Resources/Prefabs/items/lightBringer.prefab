@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 2727118155189006822}
   - component: {fileID: 2727118155189006821}
   - component: {fileID: 2727118155189006820}
+  - component: {fileID: -4993313552531569890}
   m_Layer: 11
   m_Name: lightBringer
   m_TagString: Untagged
@@ -153,3 +154,18 @@ MonoBehaviour:
   fireVelocity: 10
   reloadTime: 0.3
   meleesDamage: 15
+--- !u!114 &-4993313552531569890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2727118155189006827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60aeecfee0a3e434381bd6f5f32c1b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 330
+  tooltip: But there always light in the tower
+  weight: 33
