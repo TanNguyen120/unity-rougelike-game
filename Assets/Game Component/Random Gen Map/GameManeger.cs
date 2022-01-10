@@ -35,7 +35,7 @@ public class GameManeger : MonoBehaviour
     public List<itemsData> inventory = new List<itemsData>();
 
 
-    private static int souls;
+    public int souls;
 
 
     // we just want to store some data of the prefab not the hold thing
@@ -212,8 +212,6 @@ public class GameManeger : MonoBehaviour
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
     public void pauseGame()
     {
         Time.timeScale = 0;
@@ -222,5 +220,8 @@ public class GameManeger : MonoBehaviour
     {
         Time.timeScale = 1;
     }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 }
