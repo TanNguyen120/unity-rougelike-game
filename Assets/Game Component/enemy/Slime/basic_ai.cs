@@ -17,6 +17,13 @@ public class basic_ai : MonoBehaviour
 
     // player Position
     private Transform target;
+
+    [SerializeField] GameObject enemyBullet;
+
+    //------------------------ flag variables --------------------------------------------
+
+    [SerializeField] float reAttackTime;
+    [SerializeField] float attackTimer;
     void Start()
     {
 
@@ -36,6 +43,14 @@ public class basic_ai : MonoBehaviour
         {
             moveHandle();
         }
+
+        // fire bullet update
+        if (attackTimer >= reAttackTime)
+        {
+            fireBullet();
+            attackTimer = 0;
+        }
+        attackTimer += Time.deltaTime;
 
     }
 
@@ -64,6 +79,7 @@ public class basic_ai : MonoBehaviour
             meterUp = true;
         }
 
+
     }
 
     void moveRight()
@@ -86,6 +102,13 @@ public class basic_ai : MonoBehaviour
             GameObject player = (GameObject)other.gameObject;
             player.GetComponent<mainChar>().receiveDamage(5f);
         }
+    }
+
+    void fireBullet()
+    {
+        GameObject bullet = Instantiate(enemyBullet, gameObject.transform.position, Quaternion.identity);
+        Vector2 direction = (target.position - gameObject.transform.position).normalized;
+        bullet.GetComponent<Rigidbody2D>().velocity = direction * 1.3f;
     }
 
 }

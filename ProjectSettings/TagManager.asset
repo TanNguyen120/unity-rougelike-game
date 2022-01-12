@@ -23,8 +23,8 @@ TagManager:
   - npc
   - enemy
   - homingObject
-  - 
-  - 
+  - enemy Bullet
+  - ground Object
   - 
   - 
   - 

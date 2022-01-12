@@ -198,7 +198,7 @@ public class BoardManeger : MonoBehaviour
         initializeGridSystem();
 
         // spawn a chest
-        spawnObjectAtRandom(chests, 4, 5);
+        spawnObjectAtRandom(chests, 1, 2);
 
         //create inner wall tiles
         spawnObjectAtRandom(objects, objectCount.minimum, objectCount.maximum);

@@ -16,6 +16,8 @@ public class homing : MonoBehaviour
 
     public float damage;
 
+    [SerializeField] GameObject impact;
+
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
     void Awake()
@@ -60,6 +62,7 @@ public class homing : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        Instantiate(impact, gameObject.transform.position, Quaternion.identity);
         if (other.gameObject.tag == "enemy")
         {
             GameObject enemy = other.gameObject;

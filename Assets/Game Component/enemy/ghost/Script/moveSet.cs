@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rand = UnityEngine.Random;
 
 public class moveSet : MonoBehaviour
 {
@@ -15,17 +16,32 @@ public class moveSet : MonoBehaviour
     public float meter = 1;
     public float travelDistance = 1000;
 
+    public GameObject enemyBullet;
+
+    //----------------------------------- flag var -------------------------------
+    [SerializeField]
+    float attackTimer;
+
+    [SerializeField]
+    float reAttackTime = 4;
+
     bool meterUp = true;
     void Start()
     {
         health = maxHealth;
         rigidBody = GetComponent<Rigidbody2D>();
+        attackTimer = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (attackTimer >= reAttackTime)
+        {
+            fireBullet();
+            attackTimer = 0;
+        }
+        attackTimer += Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -77,5 +93,18 @@ public class moveSet : MonoBehaviour
     {
         rigidBody.velocity = new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime;
         meter--;
+    }
+
+    void fireBullet()
+    {
+        int count = 1;
+        while (count <= 4)
+        {
+            GameObject bullet = Instantiate(enemyBullet, gameObject.transform.position, Quaternion.identity);
+            count++;
+            float angle = rand.Range(0, 90f);
+            Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * 2;
+        }
     }
 }

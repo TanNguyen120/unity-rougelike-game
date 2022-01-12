@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 30
+  impact: {fileID: 5418921687438986818, guid: 92e13b200e9a48442aba5c9307556f02, type: 3}
 --- !u!50 &-2255833644864500609
 Rigidbody2D:
   serializedVersion: 4

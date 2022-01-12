@@ -463,6 +463,8 @@ MonoBehaviour:
   moveSpeed: 50
   meter: 1
   travelDistance: 1000
+  enemyBullet: {fileID: 1390828471736798977, guid: 2a4ebc39f12e1ca48898909a5a7e91df, type: 3}
+  reAttackTime: 4
 --- !u!50 &7009238747777757319
 Rigidbody2D:
   serializedVersion: 4
