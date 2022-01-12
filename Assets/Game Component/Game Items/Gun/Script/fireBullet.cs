@@ -17,13 +17,18 @@ public class fireBullet : MonoBehaviour
 
     private float reloadTimer;
 
+    [SerializeField] GameObject gunMuzzle;
+
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     private void Awake()
     {
         gunEndPoint = transform.Find("gunEndpoint");
         reloaded = true;
-
+    }
+    void Start()
+    {
+        gunMuzzle.SetActive(false);
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -87,11 +92,17 @@ public class fireBullet : MonoBehaviour
             // deplete all mana from mana bar
             UIController.instance.SetMana(0);
 
+            // flash the muzzle
+
+            StartCoroutine(flash());
+
+
         }
 
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // wait for gun to reloaded
     void reloading()
     {
         if (reloaded == false)
@@ -110,6 +121,14 @@ public class fireBullet : MonoBehaviour
                 UIController.instance.SetMana(1);
             }
         }
+    }
+
+    // show the flash muzzle for 0.5 seconds
+    IEnumerator flash()
+    {
+        gunMuzzle.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        gunMuzzle.SetActive(false);
     }
 }
 

@@ -16,11 +16,14 @@ public class machineGunFire : MonoBehaviour
 
     private float reloadTimer;
 
+    [SerializeField] GameObject gunMuzzle;
+
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void Start()
     {
         gunEndPoint = transform.Find("gunEndPoint");
+        gunMuzzle.SetActive(false);
         reloaded = true;
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -101,9 +104,11 @@ public class machineGunFire : MonoBehaviour
                 cloneBullet.transform.eulerAngles = new Vector3(0, 0, angle);
 
                 cloneBullet.GetComponent<Rigidbody2D>().velocity = direction * fireVelocity;
+                StartCoroutine(flash());
                 yield return new WaitForSeconds(0.2f);
 
             }
+
 
         }
 
@@ -128,5 +133,12 @@ public class machineGunFire : MonoBehaviour
                 UIController.instance.SetMana(1);
             }
         }
+    }
+
+    IEnumerator flash()
+    {
+        gunMuzzle.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        gunMuzzle.SetActive(false);
     }
 }
