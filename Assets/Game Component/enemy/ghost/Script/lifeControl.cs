@@ -68,4 +68,14 @@ public class lifeControl : MonoBehaviour
         animator.SetBool("damged", false);
 
     }
+
+    public float getCurrentHealth()
+    {
+        return (float)(health);
+    }
+
+    public float getMaxHealth()
+    {
+        return (float)(maxhealth);
+    }
 }
