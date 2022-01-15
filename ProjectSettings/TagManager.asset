@@ -7,6 +7,8 @@ TagManager:
   - Exit
   - enemy
   - npc
+  - player bullet
+  - boss
   layers:
   - Default
   - TransparentFX

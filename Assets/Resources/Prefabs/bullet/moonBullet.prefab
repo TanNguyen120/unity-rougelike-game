@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9036631909026314846}
   m_Layer: 8
   m_Name: moonBullet
-  m_TagString: Untagged
+  m_TagString: player bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

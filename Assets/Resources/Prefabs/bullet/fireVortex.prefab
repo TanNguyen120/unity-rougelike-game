@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8259952103110350943}
   m_Layer: 14
   m_Name: fireVortex
-  m_TagString: Untagged
+  m_TagString: player bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

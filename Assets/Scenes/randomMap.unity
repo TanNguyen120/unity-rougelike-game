@@ -269,13 +269,9 @@ PrefabInstance:
       value: GameManeger
       objectReference: {fileID: 0}
     - target: {fileID: 8156150337670911230, guid: 2fc563e2795b05841868cded90562fa2, type: 3}
-      propertyPath: sceneState
+      propertyPath: level
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8156150337670911230, guid: 2fc563e2795b05841868cded90562fa2, type: 3}
-      propertyPath: inventoryUi
-      value: 
-      objectReference: {fileID: 2049526966}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fc563e2795b05841868cded90562fa2, type: 3}
 --- !u!1 &1086808765

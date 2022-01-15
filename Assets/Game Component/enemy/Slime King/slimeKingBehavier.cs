@@ -25,23 +25,24 @@ public class slimeKingBehavier : MonoBehaviour
     [SerializeField] GameObject souls;
 
     //---------------------------------- Health bar var ------------------------------------------
+    [SerializeField] float maxHealth;
+    [SerializeField] float currentHealth;
 
-    [SerializeField] Image healthMask;
     [SerializeField] Text healthDisplay;
 
     float originalSize;
-
-    float maxhealth;
-
-    float currentHealth;
+    [SerializeField] Image healthMask;
+    //--------------------------------- exit door -------------------------------------------------
+    [SerializeField] GameObject exitDoor;
 
     void Start()
     {
-        maxhealth = gameObject.GetComponent<lifeControl>().getMaxHealth();
-        currentHealth = gameObject.GetComponent<lifeControl>().getCurrentHealth();
+        exitDoor.SetActive(false);
         attackTimer = 0;
         slimeSpawnTimer = 0;
         souls.GetComponent<souls>().amount = 1000;
+        currentHealth = maxHealth;
+        healthDisplay.text = currentHealth + "/" + maxHealth;
         originalSize = healthMask.rectTransform.rect.width;
     }
 
@@ -49,30 +50,26 @@ public class slimeKingBehavier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentHealth = gameObject.GetComponent<lifeControl>().getCurrentHealth();
-        // calculate health
-        int helthPercent = (int)(currentHealth / maxhealth) * 100;
-
-        // the boss have two stage 
-        if (helthPercent > 20)
+        float healthPercent = (currentHealth / maxHealth);
+        setBossHealth(healthPercent);
+        if (currentHealth <= 0)
+        {
+            deadHandle();
+        }
+        if (healthPercent * 100 > 20)
         {
             spawningSlime();
             basicAttack(1.5f);
             attackTimer += Time.deltaTime;
             slimeSpawnTimer += Time.deltaTime;
         }
-        if (helthPercent < 20)
+        if (healthPercent * 100 < 20)
         {
             spawningSlime();
             basicAttack(2f);
-            attackTimer += Time.deltaTime + 1;
-            slimeSpawnTimer += Time.deltaTime + 1;
+            attackTimer += (1.5f * Time.deltaTime);
+            slimeSpawnTimer += (Time.deltaTime * 1.5f);
         }
-        if (currentHealth <= 0)
-        {
-            deadHandle();
-        }
-        healthDisplay.text = (currentHealth / maxhealth) * 100 + " %";
 
     }
 
@@ -110,18 +107,39 @@ public class slimeKingBehavier : MonoBehaviour
         }
     }
 
+    // spawn some item and open gate to next level when the boss dead
     void deadHandle()
     {
         // spawn a chest and souls
         Instantiate(chest, transform.position + Vector3.down, Quaternion.identity);
         Instantiate(souls, transform.position, Quaternion.identity);
+        // open door to next level
+        exitDoor.SetActive(true);
         Destroy(gameObject);
     }
 
-    public void SetHealth(float value)
-    {
-        healthMask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);
 
+    // reciveDamge when hit by player bullet
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("somthing Enter");
+        if (other.gameObject.tag == "player bullet")
+        {
+            Debug.Log("it player bullet");
+            if (other.gameObject.GetComponent<BulletAtrribute>())
+            {
+                currentHealth -= other.gameObject.GetComponent<BulletAtrribute>().damage;
+            }
+            else
+            {
+                currentHealth -= 35;
+            }
+            healthDisplay.text = currentHealth + "/" + maxHealth;
+        }
     }
 
+    void setBossHealth(float value)
+    {
+        healthMask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);
+    }
 }

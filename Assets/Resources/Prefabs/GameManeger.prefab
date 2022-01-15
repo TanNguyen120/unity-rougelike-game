@@ -45,10 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 0}
-  sceneState: 0
+  sceneState: 1
+  isPaused: 0
   level: 1
-  mainWeapon: 
   playerHealth: 0
+  inventory: []
+  souls: 0
+  inventoryFull: 0
 --- !u!114 &7722435816036277086
 MonoBehaviour:
   m_ObjectHideFlags: 0

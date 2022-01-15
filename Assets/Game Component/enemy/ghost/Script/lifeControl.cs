@@ -21,7 +21,14 @@ public class lifeControl : MonoBehaviour
 
     void Awake()
     {
-        healthUi.SetActive(false);
+        if (GameManeger.instance.sceneState == SceneState.bossScene)
+        {
+            healthUi.SetActive(true);
+        }
+        else
+        {
+            healthUi.SetActive(false);
+        }
         health = maxhealth;
         animator = GetComponent<Animator>();
         originalSize = mask.rectTransform.rect.width;
@@ -43,6 +50,7 @@ public class lifeControl : MonoBehaviour
         if (health <= 0)
         {
             Instantiate(souls, transform.position, Quaternion.identity);
+            Debug.Log("Destroy " + gameObject.name);
             Destroy(gameObject);
         }
     }
@@ -51,6 +59,8 @@ public class lifeControl : MonoBehaviour
     {
 
         health -= damage;
+
+        Debug.Log("recive damage: " + damage + " health: " + health);
 
         // update health ui
         float healthBar = health / maxhealth;

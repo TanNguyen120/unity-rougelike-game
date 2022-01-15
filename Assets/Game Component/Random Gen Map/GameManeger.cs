@@ -104,6 +104,11 @@ public class GameManeger : MonoBehaviour
                         SceneManager.LoadScene(0);
                         sceneState = SceneState.beginScene;
                     }
+                    if (level == 5)
+                    {
+                        SceneManager.LoadScene(2);
+                        sceneState = SceneState.bossScene;
+                    }
                     initializeGame();
                     Debug.Log("on scene load " + level);
                     UIController.instance.displayLevel(level);
