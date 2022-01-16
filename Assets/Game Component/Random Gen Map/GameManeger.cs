@@ -38,8 +38,7 @@ public class GameManeger : MonoBehaviour
     public int souls;
 
 
-    // we just want to store some data of the prefab not the hold thing
-    public itemsData mainWeaponData = new itemsData();
+
 
     public bool inventoryFull = false;
 
@@ -66,7 +65,6 @@ public class GameManeger : MonoBehaviour
         // use this to not destroy the game manager when new scene is created
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManeger>();
-        mainWeaponData.itemName = "";
         isPaused = false;
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -94,7 +92,7 @@ public class GameManeger : MonoBehaviour
             case SceneState.beginScene:
                 {
                     Debug.Log("back to beginning");
-
+                    SoundManager.instance.playBeginSceneBGM();
                 }
                 break;
             case SceneState.randomGenScene:
@@ -113,6 +111,14 @@ public class GameManeger : MonoBehaviour
                     Debug.Log("on scene load " + level);
                     UIController.instance.displayLevel(level);
                     UIController.instance.displaySouls(souls);
+                    // play back ground music
+                    SoundManager.instance.playRandomSceneBGM();
+                }
+                break;
+            case SceneState.bossScene:
+                {
+                    SoundManager.instance.playKingSlimeSceneBGM();
+
                 }
                 break;
         }
@@ -133,8 +139,18 @@ public class GameManeger : MonoBehaviour
     {
         if (oneTimeUpdate)
         {
+
             oneTimeUpdate = false;
-            UIController.instance.displayMainWeapon(mainWeaponData.itemIcon);
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                // display main weapon
+                if (inventory[i].isMainWeapon)
+                {
+                    UIController.instance.displayMainWeapon(inventory[i].itemIcon);
+                }
+
+            }
+
             UIController.instance.showItems();
 
         }
@@ -174,18 +190,22 @@ public class GameManeger : MonoBehaviour
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    // this is for the main weapon item data so we can show it in a box in UI 
-    public void assignMainWeapon(string weaponName, Sprite weaponSprite)
+    // find the main weapon in inventory
+    public GameObject findMainWeapon()
     {
-        mainWeaponData.itemName = weaponName;
-        mainWeaponData.itemIcon = weaponSprite;
-        mainWeaponData.isMainWeapon = true;
-        Debug.Log("main weapon is: " + mainWeaponData.itemName);
-        // display it to UI
-        UIController.instance.displayMainWeapon(mainWeaponData.itemIcon);
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].isMainWeapon)
+            {
+                GameObject mainWeapon = Resources.Load("Prefabs/items/" + inventory[i].itemName) as GameObject;
+                return mainWeapon;
+            }
+        }
+        return null;
     }
+
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // change the main weapon in inventory not relate to the function above
+    // change the main weapon in inventory 
     public void changeMainWeapon(int slotNumber)
     {
         for (int i = 0; i < inventory.Count; i++)
@@ -193,6 +213,7 @@ public class GameManeger : MonoBehaviour
             inventory[i].isMainWeapon = false;
         }
         inventory[slotNumber].isMainWeapon = true;
+        UIController.instance.displayMainWeapon(inventory[slotNumber].itemIcon);
 
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -213,6 +234,7 @@ public class GameManeger : MonoBehaviour
 
     }
 
+    // add main weapon to inventory
 
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------

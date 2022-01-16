@@ -67,25 +67,22 @@ public class mainChar : MonoBehaviour
             UIController.instance.SetHealth(currentHealth / playerHealth);
 
             // get the weapon info from gameManeger
-            if (GameManeger.instance.mainWeaponData.itemName.Length > 0)
+            GameObject mainWeapon = GameManeger.instance.findMainWeapon();
+            if (mainWeapon != null)
             {
-                GameObject weaponPref = Resources.Load("Prefabs/items/" + GameManeger.instance.mainWeaponData.itemName) as GameObject;
-                if (weaponPref)
-                {
-                    GameObject updateWeapon = Instantiate(weaponPref, transform.position, Quaternion.identity);
-                    swapWeapon(updateWeapon);
-                }
+                GameObject updateWeapon = Instantiate(mainWeapon, transform.position, Quaternion.identity);
+                swapWeapon(updateWeapon);
             }
             else
             {
                 // if not store we assign the default weapon
-                storeMainWeapon();
                 // and add it to inventory
                 GameObject defaultWeapon = transform.Find("gun").gameObject;
                 string weaponName = defaultWeapon.name;
                 Sprite weaponSprite = defaultWeapon.GetComponent<SpriteRenderer>().sprite;
                 itemsData mainWeaponData = new itemsData { itemName = weaponName, itemIcon = weaponSprite, isMainWeapon = true };
                 GameManeger.instance.addToInventory(mainWeaponData);
+                UIController.instance.displayMainWeapon(mainWeaponData.itemIcon);
             }
         }
         moveListener();
@@ -296,13 +293,6 @@ public class mainChar : MonoBehaviour
 
         ortherGun.transform.position = weaponHoldPoint.position;
 
-        string weaponName = ortherGun.gameObject.name.Replace("(Clone)", "");
-        Sprite weaponSprite = ortherGun.GetComponent<SpriteRenderer>().sprite;
-        GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
-
-        // make an item data and add it to inventory
-        itemsData weapon = new itemsData { itemName = weaponName, itemIcon = weaponSprite, isMainWeapon = true };
-        GameManeger.instance.addToInventory(weapon);
 
         if (gameObject.transform.Find("gun"))
         {
@@ -324,8 +314,18 @@ public class mainChar : MonoBehaviour
             {
                 Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
 
-                //swap the current held weapon to the new one
-                
+                //swap the current held weapon to the new onestring weaponName = ortherGun.gameObject.name.Replace("(Clone)", "");
+                GameObject pickedWeapon = hit.collider.gameObject;
+
+                // add it to inventory and make it the main weapon
+                itemsData pickedWeaponData = new itemsData
+                {
+                    itemName = pickedWeapon.name.Replace("(Clone)", ""),
+                    itemIcon = pickedWeapon.GetComponent<SpriteRenderer>().sprite,
+                    isMainWeapon = true
+                };
+                GameManeger.instance.addToInventory(pickedWeaponData);
+                UIController.instance.displayMainWeapon(pickedWeaponData.itemIcon);
                 swapWeapon(hit.collider.gameObject);
             }
         }
@@ -337,15 +337,6 @@ public class mainChar : MonoBehaviour
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-    // set main weapon section in game manager
-    void storeMainWeapon()
-    {
-        GameObject defaultWeapon = transform.Find("gun").gameObject;
-        string weaponName = defaultWeapon.name;
-        Sprite weaponSprite = defaultWeapon.GetComponent<SpriteRenderer>().sprite;
-        Debug.Log("assing weapon: " + weaponName + weaponSprite);
-        GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
-    }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
     // this func is for swap weapon in inventory so we dont need to add a new item to inventory
     public void changeMainWeapon(GameObject ortherGun)
@@ -364,12 +355,7 @@ public class mainChar : MonoBehaviour
 
         ortherGun.transform.position = weaponHoldPoint.position;
 
-        string weaponName = ortherGun.gameObject.name.Replace("(Clone)", "");
-        Sprite weaponSprite = ortherGun.GetComponent<SpriteRenderer>().sprite;
-        GameManeger.instance.assignMainWeapon(weaponName, weaponSprite);
 
-        // make an item data and add it to inventory
-        itemsData weapon = new itemsData { itemName = weaponName, itemIcon = weaponSprite, isMainWeapon = true };
 
         ortherGun.name = "gun";
     }

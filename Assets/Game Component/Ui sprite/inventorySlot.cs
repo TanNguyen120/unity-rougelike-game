@@ -35,9 +35,6 @@ public class inventorySlot : MonoBehaviour, IPointerClickHandler
 
                 // change the item data inventory
                 GameManeger.instance.changeMainWeapon(inventorySlotNumber);
-
-                // set the main weapon in game manager
-                GameManeger.instance.assignMainWeapon(gameObject.name, gameObject.GetComponent<Image>().sprite);
             }
 
         }
