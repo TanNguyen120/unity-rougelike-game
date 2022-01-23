@@ -66,6 +66,7 @@ public class GameManeger : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManeger>();
         isPaused = false;
+        SoundManager.instance.playBeginSceneBGM();
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -99,13 +100,15 @@ public class GameManeger : MonoBehaviour
                 {
                     if (level % 3 == 0)
                     {
-                        SceneManager.LoadScene(0);
+                        SceneManager.LoadScene("open_sence");
                         sceneState = SceneState.beginScene;
+                        SoundManager.instance.playBeginSceneBGM();
                     }
                     if (level == 5)
                     {
-                        SceneManager.LoadScene(2);
+                        SceneManager.LoadScene("Boss Scene floor 5");
                         sceneState = SceneState.bossScene;
+                        SoundManager.instance.playKingSlimeSceneBGM();
                     }
                     initializeGame();
                     Debug.Log("on scene load " + level);
