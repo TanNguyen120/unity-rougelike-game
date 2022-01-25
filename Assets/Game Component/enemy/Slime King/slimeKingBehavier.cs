@@ -35,6 +35,9 @@ public class slimeKingBehavier : MonoBehaviour
     //--------------------------------- exit door -------------------------------------------------
     [SerializeField] GameObject exitDoor;
 
+    //--------------------------------- Particle System -------------------------------------------
+    [SerializeField] ParticleSystem deadExpolder;
+
     void Start()
     {
         exitDoor.SetActive(false);
@@ -44,6 +47,7 @@ public class slimeKingBehavier : MonoBehaviour
         currentHealth = maxHealth;
         healthDisplay.text = currentHealth + "/" + maxHealth;
         originalSize = healthMask.rectTransform.rect.width;
+        deadExpolder.Stop();
     }
 
 
@@ -110,12 +114,11 @@ public class slimeKingBehavier : MonoBehaviour
     // spawn some item and open gate to next level when the boss dead
     void deadHandle()
     {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+        // play the dramatic effect
+        StartCoroutine(playDeadParticles());
         // spawn a chest and souls
-        Instantiate(chest, transform.position + Vector3.down, Quaternion.identity);
-        Instantiate(souls, transform.position, Quaternion.identity);
-        // open door to next level
-        exitDoor.SetActive(true);
-        Destroy(gameObject);
+
     }
 
 
@@ -141,5 +144,17 @@ public class slimeKingBehavier : MonoBehaviour
     void setBossHealth(float value)
     {
         healthMask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);
+    }
+
+    IEnumerator playDeadParticles()
+    {
+        Debug.Log("play particles");
+        deadExpolder.Play();
+        yield return new WaitForSeconds(2f);
+        Instantiate(chest, transform.position + Vector3.down, Quaternion.identity);
+        Instantiate(souls, transform.position, Quaternion.identity);
+        // open door to next level
+        exitDoor.SetActive(true);
+        Destroy(gameObject);
     }
 }

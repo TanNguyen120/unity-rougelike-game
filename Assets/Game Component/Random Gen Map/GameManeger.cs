@@ -66,7 +66,7 @@ public class GameManeger : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManeger>();
         isPaused = false;
-        SoundManager.instance.playBeginSceneBGM();
+
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -155,6 +155,44 @@ public class GameManeger : MonoBehaviour
             }
 
             UIController.instance.showItems();
+            switch (sceneState)
+            {
+
+                case SceneState.beginScene:
+                    {
+                        Debug.Log("back to beginning");
+                        SoundManager.instance.playBeginSceneBGM();
+                    }
+                    break;
+                case SceneState.randomGenScene:
+                    {
+                        if (level % 3 == 0)
+                        {
+                            SceneManager.LoadScene("open_sence");
+                            sceneState = SceneState.beginScene;
+                            SoundManager.instance.playBeginSceneBGM();
+                        }
+                        if (level == 5)
+                        {
+                            SceneManager.LoadScene("Boss Scene floor 5");
+                            sceneState = SceneState.bossScene;
+                            SoundManager.instance.playKingSlimeSceneBGM();
+                        }
+                        initializeGame();
+                        Debug.Log("on scene load " + level);
+                        UIController.instance.displayLevel(level);
+                        UIController.instance.displaySouls(souls);
+                        // play back ground music
+                        SoundManager.instance.playRandomSceneBGM();
+                    }
+                    break;
+                case SceneState.bossScene:
+                    {
+                        SoundManager.instance.playKingSlimeSceneBGM();
+
+                    }
+                    break;
+            }
 
         }
 

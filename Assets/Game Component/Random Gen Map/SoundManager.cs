@@ -68,6 +68,4 @@ public class SoundManager : MonoBehaviour
         }
         kingSlimeBGM.Play();
     }
-
-
 }
