@@ -16,18 +16,22 @@ public class MainMenu : MonoBehaviour
     }
     public void startGame()
     {
+        SFXManager.instance.playButtonPress();
         Debug.Log("Start Game");
         SceneManager.LoadScene("open_sence");
+
     }
 
     public void exitGame()
     {
+        SFXManager.instance.playButtonPress();
         Debug.Log("Exit Game");
         Application.Quit();
     }
 
     public void optionMenuController()
     {
+        SFXManager.instance.playButtonPress();
         if (!openOption)
         {
             openOption = true;
@@ -52,10 +56,12 @@ public class MainMenu : MonoBehaviour
         {
             Screen.fullScreen = !Screen.fullScreen;
         }
+        SFXManager.instance.playButtonPress();
 
     }
     public void toogleVsync(bool isToggle)
     {
+        SFXManager.instance.playButtonPress();
         if (isToggle)
         {
             QualitySettings.vSyncCount = 1;

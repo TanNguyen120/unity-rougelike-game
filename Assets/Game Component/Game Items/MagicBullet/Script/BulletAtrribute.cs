@@ -27,6 +27,7 @@ public class BulletAtrribute : MonoBehaviour
             GameObject enemy = other.gameObject;
             enemy.GetComponent<lifeControl>().receiveDamage(damage);
         }
+        SFXManager.instance.playExplosionSound();
         Destroy(gameObject);
     }
 }

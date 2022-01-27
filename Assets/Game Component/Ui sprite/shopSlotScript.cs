@@ -15,6 +15,7 @@ public class shopSlotScript : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        SFXManager.instance.playButtonPress();
         Debug.Log("Buy items");
         float playerSouls = GameManeger.instance.souls;
 

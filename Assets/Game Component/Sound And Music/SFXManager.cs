@@ -4,15 +4,42 @@ using UnityEngine;
 
 public class SFXManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static SFXManager instance;
+    [SerializeField] AudioSource buttonPressSound;
+    [SerializeField] AudioSource damageSound;
+
+    [SerializeField] AudioSource gunFireSound;
+
+
+    void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        // use this to not destroy the game manager when new scene is created
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void playButtonPress()
     {
-        
+        Debug.Log("play button press sound");
+        buttonPressSound.PlayOneShot(buttonPressSound.clip);
+    }
+
+    public void playHitSound()
+    {
+        Debug.Log("play damage Sound");
+        damageSound.PlayOneShot(damageSound.clip);
+    }
+
+    public void playExplosionSound()
+    {
+        Debug.Log("play explosion Sound");
+        gunFireSound.PlayOneShot(gunFireSound.clip);
     }
 }

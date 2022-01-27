@@ -18,6 +18,7 @@ public class inventorySlot : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         // if player left clicked
+        SFXManager.instance.playButtonPress();
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             // if the slot contains an item

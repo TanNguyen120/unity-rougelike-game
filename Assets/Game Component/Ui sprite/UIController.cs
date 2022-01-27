@@ -135,6 +135,7 @@ public class UIController : MonoBehaviour
             GameManeger.instance.isPaused = false;
             resetInventory();
         }
+        SFXManager.instance.playButtonPress();
         inventoryUi.SetActive(showInventory);
 
     }
