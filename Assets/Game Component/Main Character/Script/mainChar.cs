@@ -210,6 +210,7 @@ public class mainChar : MonoBehaviour
 
         UIController.instance.SetHealth(currentHealth / playerHealth);
         GameManeger.instance.playerHealth = currentHealth;
+        SFXManager.instance.playHitSound();
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -240,6 +241,7 @@ public class mainChar : MonoBehaviour
             bugManController bugman = hit.collider.gameObject.GetComponent<bugManController>();
             if (bugman)
             {
+                SFXManager.instance.playButtonPress();
                 Debug.Log("main player talk to bug man");
                 bugman.chatting();
             }
@@ -257,6 +259,7 @@ public class mainChar : MonoBehaviour
             if (merchant)
             {
                 Debug.Log("main player want to shopping");
+                SFXManager.instance.playButtonPress();
                 merchant.chatting();
             }
         }
@@ -274,7 +277,9 @@ public class mainChar : MonoBehaviour
             chest chestObject = hit.collider.GetComponent<chest>();
             if (chestObject != null)
             {
+                SFXManager.instance.playOpenChestSound();
                 chestObject.openChest();
+
             }
         }
     }
@@ -309,6 +314,7 @@ public class mainChar : MonoBehaviour
     {
         if (!GameManeger.instance.inventoryFull)
         {
+            SFXManager.instance.playPickUpItemSound();
             RaycastHit2D hit = Physics2D.Raycast(rigidBody.position + Vector2.up * 0.2f, lookDirection, 2.5f, LayerMask.GetMask("gun"));
             if (hit.collider != null)
             {

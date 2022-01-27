@@ -12,6 +12,7 @@ public class souls : MonoBehaviour
 
         if (player.tag == "Player")
         {
+            SFXManager.instance.playSuckingSound();
             GameManeger.instance.absorbSouls(amount);
             Destroy(gameObject);
         }

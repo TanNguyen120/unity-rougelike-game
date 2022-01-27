@@ -9,6 +9,7 @@ public class heatlhPotion : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            SFXManager.instance.playDrinkPotionSound();
             other.gameObject.GetComponent<mainChar>().restoreHealth(amount);
             Destroy(gameObject);
         }

@@ -128,14 +128,16 @@ public class UIController : MonoBehaviour
             GameManeger.instance.pauseGame();
             GameManeger.instance.isPaused = true;
             showItems();
+            SFXManager.instance.playButtonPress();
         }
         else
         {
             GameManeger.instance.resumeGame();
             GameManeger.instance.isPaused = false;
             resetInventory();
+            SFXManager.instance.playCancleBTNSound();
         }
-        SFXManager.instance.playButtonPress();
+
         inventoryUi.SetActive(showInventory);
 
     }

@@ -20,6 +20,7 @@ public class nextLevel : MonoBehaviour
         // if the player is enter this increse level and reloaded scenes
         if (other.gameObject.tag == "Player")
         {
+            SFXManager.instance.playTeleSound();
             int nextLevel = currenLevel + 1;
             gameManeger.level = nextLevel;
             Debug.Log("next level: " + nextLevel);

@@ -540,6 +540,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210750610}
   m_CullTransparentMesh: 1
+--- !u!82 &271986653 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3441809762001724951, guid: 258be644d047fc140ba0eba9aa4ad49f, type: 3}
+  m_PrefabInstance: {fileID: 4214648398307888159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &324738730
 GameObject:
   m_ObjectHideFlags: 0
@@ -37896,6 +37901,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &2055888024 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6103350360328731034, guid: 258be644d047fc140ba0eba9aa4ad49f, type: 3}
+  m_PrefabInstance: {fileID: 4214648398307888159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2072678502 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2681639660015526063, guid: d3e9574a5b8336f45a9593c548890d44, type: 3}
@@ -37907,6 +37917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &2078034270 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 350912439847255814, guid: 258be644d047fc140ba0eba9aa4ad49f, type: 3}
+  m_PrefabInstance: {fileID: 4214648398307888159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2092653311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38295,17 +38310,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9210786889028000533, guid: 258be644d047fc140ba0eba9aa4ad49f, type: 3}
-      propertyPath: damageSound
+      propertyPath: soulsSuckSound
       value: 
-      objectReference: {fileID: 5803467134793135067, guid: 496eb541493e7e14fb69421e1f48dd85, type: 3}
+      objectReference: {fileID: 2078034270}
     - target: {fileID: 9210786889028000533, guid: 258be644d047fc140ba0eba9aa4ad49f, type: 3}
-      propertyPath: gunFireSound
+      propertyPath: drinkPotionSound
       value: 
-      objectReference: {fileID: 6855933177814997116, guid: 81f15c33a345be7408a3d84b77b7e2d2, type: 3}
+      objectReference: {fileID: 271986653}
     - target: {fileID: 9210786889028000533, guid: 258be644d047fc140ba0eba9aa4ad49f, type: 3}
-      propertyPath: buttonPressSound
+      propertyPath: cancelButtonSound
       value: 
-      objectReference: {fileID: 8766487786617763061, guid: 7071fe3a76dcc6d43b66d4a8ccbaf7fa, type: 3}
+      objectReference: {fileID: 2055888024}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258be644d047fc140ba0eba9aa4ad49f, type: 3}
 --- !u!1001 &4624427330085727987

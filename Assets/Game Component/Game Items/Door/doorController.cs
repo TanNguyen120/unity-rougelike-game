@@ -41,6 +41,7 @@ public class doorController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            SFXManager.instance.playTeleSound();
             Debug.Log("EnterDoor: go to random gen map scene");
             // tell game manager to gen map in new scene
             GameManeger.instance.sceneState = SceneState.randomGenScene;
